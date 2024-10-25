@@ -7,7 +7,7 @@ const ProductosFiltro = () => {
 
   const onFinish = (data) => {
     console.log(data);
-  };
+  }
 
   return (
     <>

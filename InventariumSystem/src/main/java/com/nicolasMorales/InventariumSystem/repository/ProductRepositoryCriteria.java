@@ -1,4 +1,4 @@
-package com.nicolasMorales.InventariumSystem.repository.impl;
+package com.nicolasMorales.InventariumSystem.repository;
 
 import com.nicolasMorales.InventariumSystem.dto.filter.ProductFilter;
 import com.nicolasMorales.InventariumSystem.entity.Product;
@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ProductRepositoryImpl {
+public class ProductRepositoryCriteria {
 
     private final EntityManager em;
 
-    public ProductRepositoryImpl(EntityManager em) {
+    public ProductRepositoryCriteria(EntityManager em) {
         this.em = em;
     }
 

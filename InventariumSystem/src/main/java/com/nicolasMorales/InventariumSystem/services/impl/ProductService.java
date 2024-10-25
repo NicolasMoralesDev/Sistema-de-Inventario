@@ -7,7 +7,7 @@ import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IProductRepository;
-import com.nicolasMorales.InventariumSystem.repository.impl.ProductRepositoryImpl;
+import com.nicolasMorales.InventariumSystem.repository.ProductRepositoryCriteria;
 import com.nicolasMorales.InventariumSystem.services.IProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +43,7 @@ public class ProductService implements IProductService {
     private PdfService pdfService;
 
     @Autowired
-    private ProductRepositoryImpl productRepository;
+    private ProductRepositoryCriteria productRepository;
 
     private final Path fileStorageLocation = Paths.get("pdf-storage").toAbsolutePath().normalize();
 

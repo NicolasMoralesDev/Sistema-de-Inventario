@@ -73,7 +73,7 @@ public class ControllerProduct {
      * Controllador para obtener todos los productos registrados.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista de productos.
      */
-    @PostMapping(value = "/getAll")
+    @GetMapping(value = "/getAll")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> getProduct(@RequestBody ProductFilter filtro) {
         try {
