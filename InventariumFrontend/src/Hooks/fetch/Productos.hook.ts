@@ -23,13 +23,14 @@ export const obtenerProductos = async () => {
  */
 export const useObtenerProductos = (): [ Producto[], Error, boolean, Function]  => {
 	const [data, error, loading, doAxios] = useAxios<Producto[]>({
-		method: "GET",
+		method: "POST",
 		triggered: true
 	})
 
-	const trigger = () => {
+	const trigger = (productoFilter) => {
 		doAxios({
 			url: `${ URL_BASE }/getAll`,
+			data: productoFilter
 		})
 	}
 	

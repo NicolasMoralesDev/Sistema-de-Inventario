@@ -17,6 +17,13 @@ const Productos = () => {
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
 
+  const [productoFilterDefault, setProductoFilterDefault] = useState({"nombre": "",
+                                                                      "codigo": "",
+                                                                      "precio": "",
+                                                                      "marca": "",
+                                                                    })
+  const [productoFilter, setProductoFilter] = useState(null)
+
   const [productos, errorObtenerProductos, obteniendoProductos, obtenerProductos] = useObtenerProductos()
   const [categorias, errorObtenerCategorias, obteniendoCategorias, obtenerCategorias] = useObtenerCategorias()
 
@@ -44,10 +51,9 @@ const Productos = () => {
   
   useEffect(() => { if(productoEditado) { obtenerProductos() } }, [productoEditado])
 
-  useEffect(() => { 
-     obtenerCategorias()
-     obtenerProductos()
-  }, [])
+  useEffect(() => { obtenerCategorias() }, [])
+
+  useEffect(() => { productoFilter != null ? obtenerProductos(productoFilter) : obtenerProductos(productoFilterDefault)  }, [productoFilter])
 
   const onGetByCode = (code) => {
      obtenerProductoByCodigo(code)
@@ -58,11 +64,17 @@ const Productos = () => {
   }
 
   const onGeneratePdf = async (productosIds) => {
-     await genearReportePDFproductos(productosIds)
+    await genearReportePDFproductos(productosIds)
   }
 
   const onEdit = (productoEdit) => {
-      editarProducto(productoEdit)
+    editarProducto(productoEdit)
+  }
+
+  const onFiltrar = (filtro) => {
+    setProductoFilter(filtro)
+    console.log(filtro);
+    
   }
 
   const onAdd = async (productoAdd) => {
@@ -103,7 +115,9 @@ const Productos = () => {
           edit={ false }
         />
       }
-      <ProductosFiltro/>
+      <ProductosFiltro
+        obtenerProductos={ onFiltrar }
+      />
       <TablaProductos
          setVisibleAdd={ setVisibleAdd }
          setVisibleEdit={ setVisibleEdit }

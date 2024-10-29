@@ -23,28 +23,24 @@ public class ProductRepositoryCriteria {
 
     public List<Product> findProductByNombre(ProductFilter filtro) {
 
-        List <Product> resultado = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> cr = cb.createQuery(Product.class);
 
         try {
 
            Root<Product> root = cr.from(Product.class);
-           // Crear una lista de predicados
            List<Predicate> predicates = new ArrayList<>();
 
-           if (filtro.nombre() != null && !filtro.nombre().isEmpty()) {
+            if (filtro.nombre() != null && !filtro.nombre().isEmpty()) {
                predicates.add(cb.like(root.get("nombre"), "%" + filtro.nombre() + "%"));
-           }
+            }
             if (filtro.marca() != null && !filtro.marca().isEmpty()) {
                 predicates.add(cb.like(root.get("marca"), "%" + filtro.marca() + "%"));
             }
             if (filtro.codigo() != null) {
-                predicates.add(cb.like(root.get("codigo"), "%" + filtro.nombre() + "%"));
+                predicates.add(cb.equal(root.get("codigo"),  filtro.codigo()));
             }
-
            predicates.add(cb.equal(root.get("borrado"), false));
-
            cr.select(root).where(predicates.toArray(new Predicate[0]));
 
            return em.createQuery(cr).getResultList();

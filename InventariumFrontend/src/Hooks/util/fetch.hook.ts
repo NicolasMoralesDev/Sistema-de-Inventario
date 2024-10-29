@@ -47,7 +47,6 @@ useAxiosConf.interceptors.request.use(
 
     const doAxios = async (options)  => {
 		const token = cookies.get("token")
-		console.log(token);
 		
 		axios
 			.request({

@@ -1,50 +1,57 @@
 import React from "react";
-import { Button, Card, Col, Form, Input, Row } from "antd"
+import { Button, Card, Col, Form, Input, InputNumber, Row } from "antd"
 import useForm from "antd/lib/form/hooks/useForm"
 
-const ProductosFiltro = () => {
-  const [form] = useForm();
+const ProductosFiltro = ({ obtenerProductos }) => {
+  const [form] = useForm()
 
-  const onFinish = (data) => {
-    console.log(data);
+  const handleFinish = (data) => {
+    obtenerProductos(data)
   }
 
   return (
     <>
       <Card className="bg-slate-200">
-        <Form
-          form={ form }
-          name="basic"
-          onFinish={ onFinish }
-        >
-          <Card>
+        <Card title="Filtro de Productos:">
+          <Form
+            form={ form }
+            name="basic"
+            onFinish={ () =>
+              form
+                .validateFields()
+                .then(() => handleFinish(form.getFieldsValue()))
+                .catch(() => {})
+            }
+          >
             <Row gutter={ [22, 22] }>
-              <Col span={5}>
-                <Form.Item label="Nombre">
-                  <Input />
+              <Col span={ 5 }>
+                <Form.Item label="Nombre" name="nombre" >
+                  <Input allowClear />
                 </Form.Item>
               </Col>
               <Col span={ 5 }>
-                <Form.Item label="Marca">
-                  <Input />
-                </Form.Item>
-              </Col>
-                <Col span={ 5 }>
-                <Form.Item label="Precio">
-                  <Input />
+                <Form.Item label="Marca" name="marca" >
+                  <Input allowClear />
                 </Form.Item>
               </Col>
               <Col span={ 5 }>
-                <Form.Item label="Codigo">
-                  <Input />
+                <Form.Item label="Precio" name="precio" >
+                  <Input allowClear />
+                </Form.Item>
+              </Col>
+              <Col span={ 5 }>
+                <Form.Item label="Codigo" name="codigo" >
+                  <Input allowClear/>
                 </Form.Item>
               </Col>
             </Row>
             <Row>
-                <Button htmlType="submit">Filtrar</Button>
+              <Form.Item>
+                <Button htmlType="submit" className="btn-cyan-custom bg-cyan-900 text-white">Filtrar</Button>
+              </Form.Item>
             </Row>
-          </Card>
-        </Form>
+          </Form>
+        </Card>
       </Card>
     </>
   );
