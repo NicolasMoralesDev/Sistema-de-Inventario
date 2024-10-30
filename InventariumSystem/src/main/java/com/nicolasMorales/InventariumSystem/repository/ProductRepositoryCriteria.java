@@ -40,14 +40,16 @@ public class ProductRepositoryCriteria {
             if (filtro.codigo() != null) {
                 predicates.add(cb.equal(root.get("codigo"),  filtro.codigo()));
             }
+            if (filtro.precio() != null) {
+                predicates.add(cb.equal(root.get("precio"),  filtro.precio()));
+            }
            predicates.add(cb.equal(root.get("borrado"), false));
            cr.select(root).where(predicates.toArray(new Predicate[0]));
 
            return em.createQuery(cr).getResultList();
-
        } catch (Exception e) {
             e.printStackTrace();
         }
-        return  em.createQuery(cr).getResultList();
+        return em.createQuery(cr).getResultList();
     }
 }

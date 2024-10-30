@@ -38,7 +38,8 @@ const LoginForm = ({ onLogin }) => {
             >
           <Input placeholder="Ingrese su nombre de usuario" />
         </Form.Item>
-        <Form.Item label="Contraseña"
+        <Form.Item 
+            label="Contraseña"
             rules={ [
                     {
                       required: true,
