@@ -182,7 +182,7 @@ public class ProductService implements IProductService {
     public List <Product> getProducts(ProductFilter filtro) throws BussinesException{
         try {
             logger.info("Obteniendo productos...");
-            List <Product> listProducts = productRepository.findProductByNombre(filtro);
+            List <Product> listProducts = productRepository.findProductosByFilter(filtro);
             if (listProducts.isEmpty()) {
                 throw new BussinesException("No se encontraron Productos cargados!!");
             }

@@ -21,7 +21,7 @@ public class ProductRepositoryCriteria {
         this.em = em;
     }
 
-    public List<Product> findProductByNombre(ProductFilter filtro) {
+    public List<Product> findProductosByFilter(ProductFilter filtro) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> cr = cb.createQuery(Product.class);
