@@ -40,7 +40,7 @@ const ProductosFiltro = ({ obtenerProductos }) => {
                 </Form.Item>
               </Col>
               <Col span={ 5 }>
-                <Form.Item label="Codigo" name="codigo" >
+                <Form.Item label="Codigo" name="codigo de barras" >
                   <Input allowClear/>
                 </Form.Item>
               </Col>

@@ -88,9 +88,9 @@ const Productos = () => {
         <title>Listado de productos</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      <FormBusqueda
+      {/* <FormBusqueda
          onGetByCode={ onGetByCode }
-      />
+      /> */}
       {
         visibleEdit &&
         <ProductosModal 
