@@ -48,7 +48,7 @@ const Ingresos = () => {
           onSend={ onEdit }
         />
       }
-      <IngresosFiltro obtenerIngresos={undefined}/>
+      <IngresosFiltro obtenerIngresos={undefined} provedores={undefined}/>
       <TablaRegistros
         setIngresoEdit={ setIngresoEdit }
         setVisibleEdit={ setVisibleEdit }

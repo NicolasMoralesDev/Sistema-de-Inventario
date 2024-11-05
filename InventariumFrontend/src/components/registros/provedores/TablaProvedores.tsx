@@ -82,7 +82,6 @@ const TablaProvedores = (props) => {
       <Table
         size="small"
         bordered={ true }
-        className="overflow-x-scroll"
         rowKey={ (provedor) => provedor.id }
         dataSource={ dataSourse }
         columns={ columns }
