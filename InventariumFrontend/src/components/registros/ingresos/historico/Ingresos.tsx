@@ -6,6 +6,7 @@ import TablaRegistros from "../../TablaRegistros"
 import { loadingPop, successPop } from "../../../../Hooks/util/messages/alerts"
 import useForm from "antd/lib/form/hooks/useForm"
 import { columnsIngresos } from "../../registros.constants.table"
+import IngresosFiltro from "./IngresosFiltro"
 
 const Ingresos = () => {
 
@@ -47,6 +48,7 @@ const Ingresos = () => {
           onSend={ onEdit }
         />
       }
+      <IngresosFiltro obtenerIngresos={undefined}/>
       <TablaRegistros
         setIngresoEdit={ setIngresoEdit }
         setVisibleEdit={ setVisibleEdit }

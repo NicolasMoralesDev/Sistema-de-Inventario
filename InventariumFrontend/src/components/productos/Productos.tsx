@@ -117,6 +117,7 @@ const Productos = () => {
       }
       <ProductosFiltro
         obtenerProductos={ onFiltrar }
+        categorias={ categorias }
       />
       <TablaProductos
          setVisibleAdd={ setVisibleAdd }

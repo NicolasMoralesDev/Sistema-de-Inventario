@@ -3,10 +3,7 @@ package com.nicolasMorales.InventariumSystem.repository;
 import com.nicolasMorales.InventariumSystem.dto.filter.ProductFilter;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -30,9 +27,13 @@ public class ProductRepositoryCriteria {
 
            Root<Product> root = cr.from(Product.class);
            List<Predicate> predicates = new ArrayList<>();
+            root.fetch("categoria", JoinType.LEFT);
 
             if (filtro.nombre() != null && !filtro.nombre().isEmpty()) {
-               predicates.add(cb.like(root.get("nombre"), "%" + filtro.nombre() + "%"));
+               predicates.add(cb.equal(root.get("nombre"), "%" + filtro.nombre() + "%"));
+            }
+            if (filtro.categoria() != null && !filtro.categoria().isEmpty()) {
+                predicates.add(cb.like(root.get("categoria").get("titulo"), "%" + filtro.categoria() + "%"));
             }
             if (filtro.marca() != null && !filtro.marca().isEmpty()) {
                 predicates.add(cb.like(root.get("marca"), "%" + filtro.marca() + "%"));
