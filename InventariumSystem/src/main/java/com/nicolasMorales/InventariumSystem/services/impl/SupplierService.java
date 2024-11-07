@@ -26,7 +26,7 @@ public class SupplierService implements ISupplierService {
         if (supplierRepo.findByNombre(nuevo.getNombre()) == null) {
             supplierRepo.save(nuevo);
         } else {
-            throw new BussinesException("Este provedor ya existe");
+            throw new BussinesException("Este proveedor ya existe");
         }
     }
 

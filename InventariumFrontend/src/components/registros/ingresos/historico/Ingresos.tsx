@@ -15,10 +15,12 @@ const Ingresos = () => {
   const [visibleEdit, setVisibleEdit] = useState(false)
 
   const [statusEdit, setStatusEdit] = useState("")
+  
+  const [registroFilterDefault, setRegistroFilterDefault] = useState({})
 
   const [ingresos, errorObtenerIngresos, obteniendoIngresos, obtenerIngresos] = useObtenerIngresos()
 
-  useEffect(() => { obtenerIngresos() }, [ visibleEdit ])
+  useEffect(() => { obtenerIngresos(registroFilterDefault) }, [ visibleEdit ])
 
   useEffect(() => { errorObtenerIngresos && errorPop(errorObtenerIngresos?.message) }, [errorObtenerIngresos])
 
@@ -59,6 +61,7 @@ const Ingresos = () => {
         setIngresoEdit={ setIngresoEdit }
         setVisibleEdit={ setVisibleEdit }
         dataSourse={ ingresos }
+        loading={ obteniendoIngresos }
         columnas={ columnsIngresos }
       />
     </>

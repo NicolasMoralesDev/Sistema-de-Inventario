@@ -1,12 +1,9 @@
 import React from "react" 
 import { Table } from "antd" 
 import { defaultPagination } from "../../Hooks/util/DefaultPagination" 
-import { EditOutlined } from "@ant-design/icons" 
 import Menu from "../menu/Menu"
 
-const TablaRegistros = (props) => {
-
-  const { setIngresoEdit, dataSourse, setVisibleEdit, columnas } = props
+const TablaRegistros = ({ setIngresoEdit, dataSourse, setVisibleEdit, columnas, loading }) => {
 
   /* const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
   const onSelectIngresos = (ingresosSelected) => {
@@ -28,6 +25,7 @@ const TablaRegistros = (props) => {
         rowKey={ (ingreso) => ingreso.id }
         dataSource={ dataSourse }
         columns={ columnas }
+        loading={ loading }
         pagination={ defaultPagination(dataSourse, 15) }
       /*   rowSelection={ {
           selectedRowKeys: ingresosSeleccionados,

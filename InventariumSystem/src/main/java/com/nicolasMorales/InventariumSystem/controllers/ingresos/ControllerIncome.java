@@ -3,6 +3,7 @@ package com.nicolasMorales.InventariumSystem.controllers.ingresos;
 
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
+import com.nicolasMorales.InventariumSystem.dto.filter.IncomeFilter;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.IIncomeService;
 import org.slf4j.Logger;
@@ -56,11 +57,11 @@ public class ControllerIncome {
      * Controllador para obtener todos los registros de ingresos.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un listado de Registro de Ingresos.
      */
-    @GetMapping(value = "/getAll")
+    @PostMapping(value = "/getAll")
     @PreAuthorize("hasAuthority('READ')")
-    public ResponseEntity<?> getIncome(){
+    public ResponseEntity<?> getIncomes(@RequestBody IncomeFilter filtro){
         try {
-            return ResponseEntity.ok().body(incomeService.getAllIncome());
+            return ResponseEntity.ok().body(incomeService.getAllIncome(filtro));
         } catch (Exception e){
             logger.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error "+ e.getMessage());

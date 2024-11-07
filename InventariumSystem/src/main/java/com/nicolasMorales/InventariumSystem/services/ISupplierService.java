@@ -9,12 +9,12 @@ import java.util.concurrent.ExecutionException;
 
 /**
  *  @author Nicolas Morales.
- *  Interfaz para los servicios de Provedores.
+ *  Interfaz para los servicios de Proveedores.
  */
 public interface ISupplierService {
 
     /**
-     * Registra un nuevo provedor.
+     * Registra un nuevo proveedor.
      *
      * @param nuevo {@link Supplier}
      * @throws BussinesException Error
@@ -22,7 +22,7 @@ public interface ISupplierService {
     void createSupplier(Supplier nuevo) throws BussinesException, ExecutionException;
 
     /**
-     * Borra un provedor por su id.
+     * Borra un proveedor por su id.
      *
      * @param id {@link UUID}
      * @throws BussinesException Error
@@ -30,7 +30,7 @@ public interface ISupplierService {
     String deleteSupplier(UUID id);
 
     /**
-     * Edita un provedor.
+     * Edita un proveedor.
      *
      * @param edit {@link Supplier}
      * @throws RuntimeException Error
@@ -39,14 +39,14 @@ public interface ISupplierService {
     void modifySupplier(Supplier edit) throws BussinesException, RuntimeException;
 
     /**
-     * Obtiene todos los provedores.
+     * Obtiene todos los proveedores.
      *
      * @throws BussinesException Error
      */
     List<Supplier> getSuppliers() throws BussinesException, RuntimeException;
 
     /**
-     * Obtiene un provedor por su id.
+     * Obtiene un proveedor por su id.
      *
      * @param id {@link UUID}
      * @throws BussinesException Error
@@ -54,7 +54,7 @@ public interface ISupplierService {
     Supplier getSupplierById(UUID id) throws BussinesException;
 
     /**
-     * Borra masivamente provedores.
+     * Borra masivamente proveedores.
      *
      * @param ids {@link List <UUID>}
      * @throws BussinesException Error

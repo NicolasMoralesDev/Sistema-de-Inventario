@@ -62,7 +62,7 @@ public class ControllerSupplier {
 
         try {
             supplierServ.createSupplier(nuevo);
-            response.put("msg", "Provedor cargado Exitosamente!");
+            response.put("msg", "Proveedor cargado Exitosamente!");
             return  ResponseEntity.ok().body(response);
         } catch (BussinesException  e) {
             logger.error(e.getMessage());
@@ -111,7 +111,7 @@ public class ControllerSupplier {
 
         try {
             supplierServ.deleteSuppliers(ids);
-            response.put("msg", "Provedores borrados correctamente");
+            response.put("msg", "Proveedores borrados correctamente");
             return  ResponseEntity.ok().body(response);
         } catch (Exception e){
             logger.error(e.getMessage());

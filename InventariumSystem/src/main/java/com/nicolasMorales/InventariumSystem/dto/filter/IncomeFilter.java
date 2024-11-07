@@ -1,11 +1,11 @@
 package com.nicolasMorales.InventariumSystem.dto.filter;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Nicolas Morales.
  * DTO para filtrar ingresos.
  */
-public record IncomeFilter(Date fecha, String usuario, String provedor) {
+public record IncomeFilter(LocalDateTime fecha, String usuario, String proveedor) {
 }

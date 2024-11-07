@@ -1,25 +1,20 @@
 package com.nicolasMorales.InventariumSystem.repository;
 
 import com.nicolasMorales.InventariumSystem.dto.filter.IncomeFilter;
-import com.nicolasMorales.InventariumSystem.dto.filter.ProductFilter;
 import com.nicolasMorales.InventariumSystem.entity.Income;
-import com.nicolasMorales.InventariumSystem.entity.Product;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class IngresosRepositoryCriteria {
+public class IncomeRepositoryCriteria {
 
     private final EntityManager em;
 
-    public IngresosRepositoryCriteria(EntityManager em) {
+    public IncomeRepositoryCriteria(EntityManager em) {
         this.em = em;
     }
 
@@ -32,8 +27,11 @@ public class IngresosRepositoryCriteria {
 
             Root<Income> root = cr.from(Income.class);
             List<Predicate> predicates = new ArrayList<>();
+              root.fetch("supplier", JoinType.LEFT);
 
-            predicates.add(cb.equal(root.get("borrado"), false));
+            if (filtro.proveedor() != null) {
+                predicates.add(cb.equal(root.get("supplier").get("nombre"), filtro.proveedor()));
+            }
             cr.select(root).where(predicates.toArray(new Predicate[0]));
 
             return em.createQuery(cr).getResultList();

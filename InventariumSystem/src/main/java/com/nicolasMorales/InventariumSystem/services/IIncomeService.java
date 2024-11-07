@@ -3,6 +3,7 @@ package com.nicolasMorales.InventariumSystem.services;
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTOResponse;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
+import com.nicolasMorales.InventariumSystem.dto.filter.IncomeFilter;
 import com.nicolasMorales.InventariumSystem.entity.Income;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 
@@ -20,7 +21,7 @@ public interface IIncomeService {
      *
      * @throws BussinesException Error
      */
-     List<IncomeDTOResponse> getAllIncome() throws BussinesException;
+     List<IncomeDTOResponse> getAllIncome(IncomeFilter filtro) throws BussinesException;
 
     /**
      * Obtiene un ingreso por su id.

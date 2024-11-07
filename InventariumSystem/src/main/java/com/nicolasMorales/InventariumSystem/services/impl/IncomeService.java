@@ -4,6 +4,7 @@ import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCat
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTOResponse;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
+import com.nicolasMorales.InventariumSystem.dto.filter.IncomeFilter;
 import com.nicolasMorales.InventariumSystem.entity.Income;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.entity.Supplier;
@@ -14,6 +15,7 @@ import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IIncomeRepository;
 import com.nicolasMorales.InventariumSystem.repository.ISupplierRepository;
 import com.nicolasMorales.InventariumSystem.repository.IUserRepository;
+import com.nicolasMorales.InventariumSystem.repository.IncomeRepositoryCriteria;
 import com.nicolasMorales.InventariumSystem.services.IIncomeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,13 +54,16 @@ public class IncomeService implements IIncomeService {
     @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
+    private IncomeRepositoryCriteria incomeRepoCriteria;
+
     /**
-     * @see IIncomeService#getAllIncome()
+     * @see IIncomeService#getAllIncome(IncomeFilter) ()
      */
     @Override
-    public List<IncomeDTOResponse> getAllIncome() throws BussinesException {
+    public List<IncomeDTOResponse> getAllIncome(IncomeFilter filtro) throws BussinesException {
         logger.info("Obteniendo registros de ingresos...");
-        return incomeMapper.incomeListToIncomeDTOList(incomeRepo.findAll());
+        return incomeMapper.incomeListToIncomeDTOList(incomeRepoCriteria.findIngresosByFilter(filtro));
     }
 
     /**

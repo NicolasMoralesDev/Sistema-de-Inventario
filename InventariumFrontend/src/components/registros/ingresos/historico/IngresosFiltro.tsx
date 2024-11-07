@@ -16,7 +16,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
   useEffect(() => { obteniendoProveedores && loadingPop("Obteniendo Proveedores...", "proveedores") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const handleFinish = (data) => {
-    console.log(data);
+    obtenerIngresos(data)
   }
 
   return (
@@ -54,7 +54,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
                     options={ proveedores?.map((proveedor: Provedor) => ({
                       key: proveedor.id,
                       label: proveedor.nombre,
-                      value: proveedor.id,
+                      value: proveedor.nombre,
                     })) }
                   />
                 </Form.Item>
