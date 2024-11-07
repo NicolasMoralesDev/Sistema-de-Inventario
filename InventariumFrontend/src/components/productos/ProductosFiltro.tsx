@@ -1,13 +1,20 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button, Card, Col, Form, Input, Row, Select } from "antd"
 import useForm from "antd/lib/form/hooks/useForm"
 import { Categoria } from "../../classes/Categoria"
 
 const ProductosFiltro = ({ obtenerProductos, categorias }) => {
   const [form] = useForm()
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false)
 
   const handleFinish = (data) => {
     obtenerProductos(data)
+  }
+
+  const handleInputChange = (changedValues) => {
+    // Verifica si alguno de los valores ha cambiado
+    const hasValue = Object.values(changedValues).some(value => value !== undefined && value !== '')
+    setIsButtonEnabled(hasValue)
   }
 
   return (
@@ -17,6 +24,7 @@ const ProductosFiltro = ({ obtenerProductos, categorias }) => {
           <Form
             form={ form }
             name="basic"
+            onValuesChange={ handleInputChange }
             onFinish={ () =>
               form
                 .validateFields()
@@ -62,6 +70,7 @@ const ProductosFiltro = ({ obtenerProductos, categorias }) => {
               <Form.Item>
                 <Button
                   htmlType="submit"
+                  disabled={ !isButtonEnabled }
                   className="btn-cyan-custom bg-cyan-900 text-white"
                 >
                   Filtrar

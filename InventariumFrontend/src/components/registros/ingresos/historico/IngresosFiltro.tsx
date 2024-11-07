@@ -40,8 +40,8 @@ const IngresosFiltro = ({ obtenerIngresos, provedores }) => {
               </Col>
               <Col span={5}>
                 <Form.Item label="Proveedor" name="proveedor">
-                  <Input allowClear placeholder="Proveedor del ingreso" />
                   <Select
+                    allowClear
                     options={ provedores?.map((provedor: Provedor) => ({
                       key: provedor.id,
                       label: provedor.nombre,
