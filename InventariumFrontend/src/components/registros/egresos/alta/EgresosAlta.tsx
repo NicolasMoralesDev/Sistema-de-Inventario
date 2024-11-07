@@ -49,8 +49,11 @@ const EgresosAlta = () => {
     }
  */
     useEffect(() => { onFetch() }, [productCargado, productBorrado, onRegister])
+
     useEffect(() => { if(productos?.length > 0 ) { setLoading(false) } }, [productCargado, productBorrado])
+    
     useEffect(() => { if(statusReg.length > 0) { successPop("Egreso registrado correctamente!", "egresoReg"), localStorage.removeItem("productosEgresos") } }, [statusReg])
+  
     useEffect(() => { obtenerCategorias(), loadingPop("Obteniendo Categorias...", "categoriasLoadEgre") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
@@ -64,7 +67,7 @@ const EgresosAlta = () => {
         onSend={ onLoadStorage }
         categorias={ categorias }
         onRegister={ onRegister }
-        isEgreso={ true }
+        isEgreso
       />
      <TablaProductosEgresos
         onSend={ onRegister }

@@ -1,24 +1,25 @@
 import { errorPop } from "../util/messages/alerts"
-import useAxiosConf from "../util/fetch.hook"
+import useAxiosConf, { useAxios } from "../util/fetch.hook"
+import { Provedor } from "../../classes/Provedor"
 
 const URL_BASE = "api/v1/supplier"
 
 /**
- * Obtiene todos los provedores.
- * @returns Devuelve un array con los provedores existentes.
+ * Obtiene todos los proveedores.
+ * @returns Devuelve un array con los proveedores existentes.
  */
-export const obtenerProvedores = async ()  => {
+export const useObtenerProveedores = (): [ Provedor[], Error, boolean, Function]  => {
 
-     try {
-           const request = await useAxiosConf.get(`${URL_BASE}/getAll`)
-           return request;   
-     } catch (error) {
-          errorPop("error al intentar conectarse con el servidor.")
-     }
+     const [data, error, loading, doAxios] = useAxios<Provedor[]>({
+		method: "GET",
+          url: `${ URL_BASE }/getAll`
+	})
+	
+	return [data, error, loading, doAxios]
 }
 
 /**
- * Registro de provedores.
+ * Registro de proveedores.
  * @returns Devuelve un mensaje con el resultado de la operacion.
  */
 export const registrarProvedor = async (provedor) => {
@@ -32,7 +33,7 @@ export const registrarProvedor = async (provedor) => {
 }
 
 /**
- * Modificacion de provedores.
+ * Modificacion de proveedores.
  * @returns Devuelve un mensaje con el resultado de la operacion.
  */
 export const editarProvedor = async (provedor) => {
@@ -46,7 +47,7 @@ export const editarProvedor = async (provedor) => {
 }
 
 /**
- * Realiza borrado multiple de provedores.
+ * Realiza borrado multiple de proveedores.
  * @returns Devuelve el estado de la operacion.
  */
 export const borradoMultipleProvedores = async (provedoresIds) => {

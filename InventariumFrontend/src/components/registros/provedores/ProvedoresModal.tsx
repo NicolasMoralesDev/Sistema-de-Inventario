@@ -7,7 +7,7 @@ import "./estilos/ModalProvedores.css"
 import { Provedor } from '../../../classes/Provedor'
 
 interface ProvedoresModal {
-    provedores?: Provedor[] 
+    proveedores?: Provedor[] 
     visible: boolean 
     setVisible: Function 
     setVisibleEdit: Function 
@@ -15,7 +15,7 @@ interface ProvedoresModal {
     setProvedorEditar: Function 
  }
 
-const ProvedoresModal = ({ provedores, visible, setVisible, setVisibleEdit, setProvedorEdit, setProvedorEditar }: ProvedoresModal) => {
+const ProvedoresModal = ({ proveedores, visible, setVisible, setVisibleEdit, setProvedorEdit, setProvedorEditar }: ProvedoresModal) => {
 
     const [proveDelete, setProveDelete] = useState(false)  
 
@@ -43,7 +43,7 @@ const ProvedoresModal = ({ provedores, visible, setVisible, setVisibleEdit, setP
                 width={ 1000 }
             >
                <TablaProvedores 
-                  dataSourse={ provedores }
+                  dataSourse={ proveedores }
                   borrarProvedores={ onDelete }
                   setProvedorEdit={ setProvedorEdit }
                   setVisibleEdit={ setVisibleEdit }

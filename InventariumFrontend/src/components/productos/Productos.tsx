@@ -6,7 +6,7 @@ import { borradoMultipleProductos, crearProducto, genearReportePDFproductos, use
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
 import useForm from "antd/lib/form/hooks/useForm"
-import FormBusqueda from "./formBusqueda/FormBusqueda"
+/* import FormBusqueda from "./formBusqueda/FormBusqueda" */
 import ProductosModal from "./ProductosModal"
 import ProductosFiltro from './ProductosFiltro'
 
@@ -100,7 +100,7 @@ const Productos = () => {
           visible={ visibleEdit }
           setVisible={ setVisibleEdit }
           onSend={ onEdit }
-          edit={ true }
+          edit
         />
       }
       {

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Card, Col, Form, Input, Row, Select } from "antd"
 import useForm from "antd/lib/form/hooks/useForm"
 import { Categoria } from "../../classes/Categoria"

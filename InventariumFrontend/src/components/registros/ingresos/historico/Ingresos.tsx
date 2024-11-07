@@ -23,7 +23,9 @@ const Ingresos = () => {
   }
 
   useEffect(() => { onFetch() }, [ visibleEdit ])
+  
   useEffect(() => { loadingPop("Obteniendo Registros....") }, [obtenerIngresos])
+
   useEffect(() => { if (statusEdit) { successPop(statusEdit) } }, [statusEdit])
 
   const onEdit = async (ingreso) => {
@@ -48,7 +50,7 @@ const Ingresos = () => {
           onSend={ onEdit }
         />
       }
-      <IngresosFiltro obtenerIngresos={undefined} provedores={undefined}/>
+      <IngresosFiltro obtenerIngresos={undefined}/>
       <TablaRegistros
         setIngresoEdit={ setIngresoEdit }
         setVisibleEdit={ setVisibleEdit }

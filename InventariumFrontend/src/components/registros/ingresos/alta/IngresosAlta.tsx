@@ -8,7 +8,7 @@ import { loadingPop, successPop } from '../../../../Hooks/util/messages/alerts'
 import useForm from "antd/lib/form/hooks/useForm"
 import ProductosModal from '../../../productos/ProductosModal' 
 import { registrarIngresos } from '../../../../Hooks/fetch/Ingresos.hook' 
-import { editarProvedor, obtenerProvedores, registrarProvedor } from '../../../../Hooks/fetch/Provedores.hook' 
+import { editarProvedor, registrarProvedor, useObtenerProveedores } from '../../../../Hooks/fetch/Provedores.hook' 
 import ProvedoresModal from '../../provedores/ProvedoresModal' 
 import ProvedorModal from '../../provedores/ProvedorModal' 
 import { Provedor } from '../../../../classes/Provedor' 
@@ -19,7 +19,6 @@ const IngresosAlta = () => {
 
     // fetch inicial del backend
     const [productos, setProductos] = useState([])
-    const [provedores, setProvedores] = useState([])
 
     // estados para modales
     const [visibleEdit, setVisibleEdit] = useState(false)
@@ -40,11 +39,10 @@ const IngresosAlta = () => {
     const [productBorrado, setProductBorrado] = useState(false)
 
    const [categorias, errorObtenerCategorias, obteniendoCategorias, obtenerCategorias] = useObtenerCategorias()
+   const [proveedores, errorObtenerProveedores, obteniendoProveedores, obtenerProveedores] = useObtenerProveedores()
 
     const onFetch = async () => {
         const productosLocal = obtenerProductosStorage("productos")
-        const requestProve = await obtenerProvedores()
-        setProvedores(requestProve?.data)
         setProductos(productosLocal?.productos)
     }
 
@@ -84,11 +82,18 @@ const IngresosAlta = () => {
     useEffect(() => { onFetch(), loadingPop("Cargando productos...", "cargandoProductos") }, [obtenerProductosStorage])
 
     useEffect(() => { if (productCargado) { successPop("Producto Cargado!", "productoAdd"),  onFetch(), setProductCargado(false) } }, [productCargado])
+    
     useEffect(() => { if (productBorrado) { successPop("Producto Borrado!", "productoDelete"),  onFetch(), setProductBorrado(false) } }, [productBorrado])
+  
     useEffect(() => { if (productEditado) { successPop("Producto Editado!", "productoEdit"),  onFetch(), setProductEditado(false) } }, [productEditado])
+
     useEffect(() => { if (provedorCargado) { successPop("Provedor cargado!", "provedorCargado"),  onFetch(), setProvedorCargado(false) } }, [provedorCargado])
+    
     useEffect(() => { if (statusReg) { successPop(statusReg, "productoReg"), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
-    useEffect(() => { obtenerCategorias(), loadingPop("Obteniendo Categorias...", "categoriasLoadEgre") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+    useEffect(() => { obteniendoCategorias && obtenerCategorias(), loadingPop("Obteniendo Categorias...", "categoriasLoadEgre") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+    useEffect(() => { obteniendoProveedores && obtenerProveedores(), loadingPop("Obteniendo Proveedores...", "proveedoresLoadEgre") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
       return (
       <>
@@ -100,7 +105,7 @@ const IngresosAlta = () => {
       <FormRegistrar
          onSend={ onLoadStorage }
          onRegister={ onRegistrar }
-         provedores={ provedores }
+         proveedores={ proveedores }
          categorias={ categorias }
          setVisibleProve={ setVisibleProve }
          setVisibleProveReg={ setVisibleProveReg }
@@ -108,7 +113,7 @@ const IngresosAlta = () => {
       {
         visibleProve &&
         <ProvedoresModal
-          provedores={ provedores }
+          proveedores={ proveedores }
           setVisible={ setVisibleProve }
           visible={ visibleProve }
           setVisibleEdit={ setVisibleProveEdit }
@@ -141,8 +146,8 @@ const IngresosAlta = () => {
           visible={ visibleEdit }
           setVisible={ setVisibleEdit }
           onSend={ onEditar }
-          edit={ true }
-          altaReg={ true }
+          edit
+          altaReg
         />
       }
       <TablaProductos

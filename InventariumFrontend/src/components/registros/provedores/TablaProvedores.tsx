@@ -82,7 +82,7 @@ const TablaProvedores = (props) => {
       <Table
         size="small"
         bordered={ true }
-        rowKey={ (provedor) => provedor.id }
+        rowKey={ (provedor: Provedor) => provedor.id.toString() }
         dataSource={ dataSourse }
         columns={ columns }
         pagination={ defaultPagination(dataSourse, 10) }

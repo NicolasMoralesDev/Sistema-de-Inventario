@@ -13,7 +13,7 @@ import { Categoria } from '../../classes/Categoria'
 import './estilos/formIngresos.css'
 
  interface FormRegistrar {
-    provedores?: Provedor[] 
+    proveedores?: Provedor[] 
     categorias: Categoria[] 
     onSend: Function 
     onRegister: Function 
@@ -22,7 +22,7 @@ import './estilos/formIngresos.css'
     setVisibleProveReg?: Function 
  }
 
- const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso, setVisibleProve, setVisibleProveReg }: FormRegistrar) => {
+ const FormRegistrar = ({ onSend, proveedores, categorias, onRegister, isEgreso, setVisibleProve, setVisibleProveReg }: FormRegistrar) => {
 
   const [form] = useForm()
 
@@ -147,11 +147,11 @@ import './estilos/formIngresos.css'
                 >
                   <Select
                       options={ 
-                        provedores?.map((provedor : Provedor ) => (
+                        proveedores?.map((proveedor : Provedor ) => (
                             {
-                              key: provedor.id,
-                              label: provedor.nombre,
-                              value: provedor.id
+                              key: proveedor.id,
+                              label: proveedor.nombre,
+                              value: proveedor.id
                             }
                         ))
                      } 

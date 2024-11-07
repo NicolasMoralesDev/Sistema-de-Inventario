@@ -1,36 +1,43 @@
-import React from "react";
-import { Button, Card, Col, DatePicker, Form, Input, Row, Select } from "antd";
-import useForm from "antd/lib/form/hooks/useForm";
-import { Provedor } from "../../../../classes/Provedor";
+import React, { useEffect } from "react"
+import { Button, Card, Col, DatePicker, Form, Input, Row, Select } from "antd"
+import useForm from "antd/lib/form/hooks/useForm"
+import { Provedor } from "../../../../classes/Provedor"
+import { FECHA_FORMATO_BARRAS } from "../../../../constants/fechasFarmatos"
+import { loadingPop } from "../../../../Hooks/util/messages/alerts"
+import { useObtenerProveedores } from "../../../../Hooks/fetch/Provedores.hook"
 
-const IngresosFiltro = ({ obtenerIngresos, provedores }) => {
-  const [form] = useForm();
+const IngresosFiltro = ({ obtenerIngresos }) => {
+  const [form] = useForm()
+
+  const [proveedores, errorObtenerProveedores, obteniendoProveedores, obtenerProveedores] = useObtenerProveedores()
+
+  useEffect(() => { obteniendoProveedores && obtenerProveedores(), loadingPop("Obteniendo Proveedores...", "proveedores") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const handleFinish = (data) => {
     console.log(data);
-  };
+  }
 
   return (
     <>
       <Card className="bg-slate-200">
         <Card title="Filtro de Ingresos">
           <Form
-            form={form}
+            form={ form }
             name="basic"
-            onFinish={() =>
+            onFinish={ () =>
               form
                 .validateFields()
                 .then(() => handleFinish(form.getFieldsValue()))
                 .catch(() => {})
             }
           >
-            <Row gutter={[22, 22]}>
-              <Col span={5}>
+            <Row gutter={ [22, 22] }>
+              <Col span={ 5 }>
                 <Form.Item label="Fecha" name="fecha">
-                  <DatePicker />
+                  <DatePicker format={ FECHA_FORMATO_BARRAS }/>
                 </Form.Item>
               </Col>
-              <Col span={5}>
+              <Col span={ 5 }>
                 <Form.Item label="Usuario" name="usuario">
                   <Input
                     allowClear
@@ -38,14 +45,14 @@ const IngresosFiltro = ({ obtenerIngresos, provedores }) => {
                   />
                 </Form.Item>
               </Col>
-              <Col span={5}>
+              <Col span={ 5 }>
                 <Form.Item label="Proveedor" name="proveedor">
                   <Select
                     allowClear
-                    options={ provedores?.map((provedor: Provedor) => ({
-                      key: provedor.id,
-                      label: provedor.nombre,
-                      value: provedor.id,
+                    options={ proveedores?.map((proveedor: Provedor) => ({
+                      key: proveedor.id,
+                      label: proveedor.nombre,
+                      value: proveedor.id,
                     })) }
                   />
                 </Form.Item>
