@@ -1,18 +1,14 @@
 import React from 'react'
-import { Button, Form, FormProps, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import useForm from 'antd/lib/form/hooks/useForm'
 
 const LoginForm = ({ onLogin }) => {
 
     const [form] = useForm()
   
-    const handleSubmit : FormProps['onFinish'] = (values) => {
+    const handleSubmit = (values) => {
         // Enviar datos de inicio de sesión al servidor
-        onLogin(values);
-    }
-
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo)
+        onLogin(values)
     }
   
     return (
@@ -23,15 +19,16 @@ const LoginForm = ({ onLogin }) => {
         form={ form } 
         name='basic'
         layout="vertical" 
-        onFinish={ () => form.validateFields().then(() => handleSubmit(form.getFieldsValue())).catch(() => {}) }
-        onFinishFailed={ onFinishFailed }
+        onFinish={ () => 
+          form.validateFields()
+            .then(() => handleSubmit(form.getFieldsValue()))
+            .catch(() => {}) }
         >
         <Form.Item label="Nombre de usuario"    
             rules={ [
                     {
                       required: true,
                       message: 'El nombre de usuario es obligatorio!',
-                      transform: (value) => value.trim()
                     },
                   ] }
             name="username"
@@ -44,15 +41,14 @@ const LoginForm = ({ onLogin }) => {
                     {
                       required: true,
                       message: 'La contraseña es obligatoria!',
-                      transform: (value) => value.trim()
                     },
                   ] }
             name="password"
             >
-          <Input.Password placeholder="Ingrese su contraseña" />
+          <Input.Password  placeholder="Ingrese su contraseña" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">Iniciar sesi&#972;n</Button>
+          <Button type='primary'  htmlType="submit">Iniciar sesi&#972;n</Button>
         </Form.Item>
       </Form>
       </div>
