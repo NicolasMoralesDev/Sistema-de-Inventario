@@ -1,5 +1,6 @@
 import { errorPop } from "../util/messages/alerts"
-import useAxiosConf from "../util/fetch.hook"
+import useAxiosConf, { useAxios } from "../util/fetch.hook"
+import { Ingreso } from "../../classes/Ingreso"
 
 const URL_BASE = "api/v1/income"
 
@@ -21,14 +22,21 @@ export const registrarIngresos = async (ingreso) => {
  * Obtiene todos los registros de ingresos
  * @returns Devuelve un listado de registros de ingresos.
  */
-export const obtenerIngresos = async () => {
+export const useObtenerIngresos = (): [ Ingreso[], Error, boolean, Function] => {
 
-     try {
-          const request = await useAxiosConf.get(`${URL_BASE}/getAll`)
-          return request;
-     } catch (error) {
-          errorPop("error al intentar conectarse con el servidor.");
-     }
+	const [data, error, loading, doAxios] = useAxios<Ingreso[]>({
+		method: "POST",
+		triggered: true
+	})
+
+	const trigger = (ingresoFilter) => {
+		doAxios({
+			url: `${ URL_BASE }/getAll`,
+			data: ingresoFilter
+		})
+	}
+	
+	return [data, error, loading, trigger]
 }
 
 /**

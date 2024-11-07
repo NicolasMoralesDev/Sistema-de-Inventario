@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { modificarIngresos, obtenerIngresos } from "../../../../Hooks/fetch/Ingresos.hook"
+import { modificarIngresos, useObtenerIngresos } from "../../../../Hooks/fetch/Ingresos.hook"
 import { Helmet } from "react-helmet"
 import ModalEdit from "./ModalEdit"
 import TablaRegistros from "../../TablaRegistros"
-import { loadingPop, successPop } from "../../../../Hooks/util/messages/alerts"
+import { errorPop, loadingPop, successPop } from "../../../../Hooks/util/messages/alerts"
 import useForm from "antd/lib/form/hooks/useForm"
 import { columnsIngresos } from "../../registros.constants.table"
 import IngresosFiltro from "./IngresosFiltro"
@@ -11,20 +11,18 @@ import IngresosFiltro from "./IngresosFiltro"
 const Ingresos = () => {
 
   const [form] = useForm()
-  const [ingresos, setIngresos] = useState([])
   const [ingresoEdit, setIngresoEdit] = useState([])
   const [visibleEdit, setVisibleEdit] = useState(false)
 
   const [statusEdit, setStatusEdit] = useState("")
 
-  const onFetch = async () => {
-    const request = await obtenerIngresos()
-    setIngresos(request.data)
-  }
+  const [ingresos, errorObtenerIngresos, obteniendoIngresos, obtenerIngresos] = useObtenerIngresos()
 
-  useEffect(() => { onFetch() }, [ visibleEdit ])
-  
-  useEffect(() => { loadingPop("Obteniendo Registros....") }, [obtenerIngresos])
+  useEffect(() => { obtenerIngresos() }, [ visibleEdit ])
+
+  useEffect(() => { errorObtenerIngresos && errorPop(errorObtenerIngresos?.message) }, [errorObtenerIngresos])
+
+  useEffect(() => { obtenerIngresos && loadingPop("Obteniendo Registros....") }, [obteniendoIngresos])
 
   useEffect(() => { if (statusEdit) { successPop(statusEdit) } }, [statusEdit])
 
@@ -32,6 +30,10 @@ const Ingresos = () => {
     const request = await modificarIngresos(ingreso)
     setVisibleEdit(false)
     setStatusEdit(request.data.msg)
+  }
+
+  const onFilterIngresos = (filter) => {
+     obtenerIngresos(filter)
   }
 
   return (
@@ -50,7 +52,9 @@ const Ingresos = () => {
           onSend={ onEdit }
         />
       }
-      <IngresosFiltro obtenerIngresos={undefined}/>
+      <IngresosFiltro 
+        obtenerIngresos={ onFilterIngresos }
+      />
       <TablaRegistros
         setIngresoEdit={ setIngresoEdit }
         setVisibleEdit={ setVisibleEdit }

@@ -12,6 +12,7 @@ export const useObtenerProveedores = (): [ Provedor[], Error, boolean, Function]
 
      const [data, error, loading, doAxios] = useAxios<Provedor[]>({
 		method: "GET",
+		triggered: true,
           url: `${ URL_BASE }/getAll`
 	})
 	

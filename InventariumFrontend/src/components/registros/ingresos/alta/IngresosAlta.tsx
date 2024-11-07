@@ -81,6 +81,8 @@ const IngresosAlta = () => {
 
     useEffect(() => { onFetch(), loadingPop("Cargando productos...", "cargandoProductos") }, [obtenerProductosStorage])
 
+    useEffect(() => { obtenerProveedores(), obtenerCategorias() }, [])
+
     useEffect(() => { if (productCargado) { successPop("Producto Cargado!", "productoAdd"),  onFetch(), setProductCargado(false) } }, [productCargado])
     
     useEffect(() => { if (productBorrado) { successPop("Producto Borrado!", "productoDelete"),  onFetch(), setProductBorrado(false) } }, [productBorrado])
@@ -91,9 +93,9 @@ const IngresosAlta = () => {
     
     useEffect(() => { if (statusReg) { successPop(statusReg, "productoReg"), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
     
-    useEffect(() => { obteniendoCategorias && obtenerCategorias(), loadingPop("Obteniendo Categorias...", "categoriasLoadEgre") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { obteniendoCategorias &&  loadingPop("Obteniendo Categorias...", "categoriasLoadEgre") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
     
-    useEffect(() => { obteniendoProveedores && obtenerProveedores(), loadingPop("Obteniendo Proveedores...", "proveedoresLoadEgre") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { obteniendoProveedores &&  loadingPop("Obteniendo Proveedores...", "proveedoresLoadEgre") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
       return (
       <>

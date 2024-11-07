@@ -11,7 +11,9 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
 
   const [proveedores, errorObtenerProveedores, obteniendoProveedores, obtenerProveedores] = useObtenerProveedores()
 
-  useEffect(() => { obteniendoProveedores && obtenerProveedores(), loadingPop("Obteniendo Proveedores...", "proveedores") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { obtenerProveedores() },  [])
+
+  useEffect(() => { obteniendoProveedores && loadingPop("Obteniendo Proveedores...", "proveedores") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const handleFinish = (data) => {
     console.log(data);
