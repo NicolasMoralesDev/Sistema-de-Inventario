@@ -1,8 +1,8 @@
 import React from "react"
-import { Table } from "antd";
-import { defaultPagination } from "../../Hooks/util/DefaultPagination";
+import { Table } from "antd"
+import { defaultPagination } from "../../Hooks/util/DefaultPagination"
 import Menu from "../menu/Menu"
-import { Usuario } from "../../classes/Usuario";
+import { Usuario } from "../../classes/Usuario"
 
 const TablaUsuarios = ({ dataSourse, loading }) => {
 

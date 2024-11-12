@@ -3,15 +3,24 @@ import { Button, Card, Col, DatePicker, Form, Input, Row, Select } from "antd"
 import useForm from "antd/lib/form/hooks/useForm"
 import { Provedor } from "../../../../classes/Provedor"
 import { FECHA_FORMATO_BARRAS } from "../../../../constants/fechasFarmatos"
-import { loadingPop } from "../../../../Hooks/util/messages/alerts"
+import { errorPop, loadingPop } from "../../../../Hooks/util/messages/alerts"
 import { useObtenerProveedores } from "../../../../Hooks/fetch/Provedores.hook"
 import dayjs from "dayjs"
+import { useObtenerUsuarios } from "../../../../Hooks/fetch/Usuarios.hook"
+import { Usuario } from "../../../../classes/Usuario"
 
 const IngresosFiltro = ({ obtenerIngresos }) => {
   const [form] = useForm()
 
   const [proveedores, errorObtenerProveedores, obteniendoProveedores, obtenerProveedores] = useObtenerProveedores()
 
+  const [usuarios, errorObtenerUsuarios, obteniendoUsuarios, obtenerUsuarios] = useObtenerUsuarios()
+
+  /* useEffect(() => { obteniendoUsuarios && loadingPop("Obteniendo Usuarios...", "usuarios") },  [obteniendoUsuarios]) */ // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => { errorObtenerUsuarios && errorPop(errorObtenerUsuarios?.message, "usuarios") }, [errorObtenerUsuarios])
+
+  useEffect(() => { obtenerUsuarios() }, [])
   useEffect(() => { obtenerProveedores() },  [])
 
   useEffect(() => { obteniendoProveedores && loadingPop("Obteniendo Proveedores...", "proveedores") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,9 +56,13 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
               </Col>
               <Col span={ 5 }>
                 <Form.Item label="Usuario" name="usuario">
-                  <Input
+                 <Select
                     allowClear
-                    placeholder="Usuario registrador del ingreso"
+                    options={ usuarios?.map((usuario: Usuario) => ({
+                      key: usuario.dni,
+                      label: usuario.nombreCompleto,
+                      value: usuario.nombreCompleto,
+                    })) }
                   />
                 </Form.Item>
               </Col>

@@ -29,9 +29,13 @@ public class IncomeRepositoryCriteria {
             Root<Income> root = cr.from(Income.class);
             List<Predicate> predicates = new ArrayList<>();
               root.fetch("supplier", JoinType.LEFT);
+              root.fetch("userRegister", JoinType.LEFT);
 
             if (filtro.proveedor() != null) {
                 predicates.add(cb.equal(root.get("supplier").get("nombre"), filtro.proveedor()));
+            }
+            if (filtro.usuario() != null) {
+                predicates.add(cb.equal(root.get("userRegister").get("nombreCompleto"), filtro.usuario()));
             }
             if (filtro.fecha() != null) {
                 LocalDate fechaFiltro = filtro.fecha().toLocalDate(); // Convertimos a LocalDate para eliminar la hora
