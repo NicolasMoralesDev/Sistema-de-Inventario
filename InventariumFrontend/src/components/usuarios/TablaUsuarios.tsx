@@ -1,17 +1,15 @@
 import React from "react"
 import { Table } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { EditOutlined } from "@ant-design/icons";
 import Menu from "../menu/Menu"
+import { Usuario } from "../../classes/Usuario";
 
-const TablaUsuarios = (props) => {
+const TablaUsuarios = ({ dataSourse, loading }) => {
 
-  const { setIngresoEdit, dataSourse, setVisibleEdit } = props
-
-  const onEdit = (income) => {
+/*   const onEdit = (income) => {
     setIngresoEdit(income)
     setVisibleEdit(true)
-  }
+  } */
 
   const columns = [
     {
@@ -58,7 +56,8 @@ const TablaUsuarios = (props) => {
       <Table
         /* scroll="small" */
         className="overflow-x-scroll"
-        rowKey={ (usuario) => usuario.id }
+        rowKey={ (usuario : Usuario) => usuario.dni.toString() }
+        loading={ loading }
         dataSource={ dataSourse }
         columns={ columns }
         pagination={ defaultPagination(dataSourse, 10) }

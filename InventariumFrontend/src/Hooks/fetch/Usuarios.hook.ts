@@ -1,5 +1,5 @@
-import { errorPop } from "../util/messages/alerts"
-import useAxiosConf from "../util/fetch.hook"
+import { Usuario } from "../../classes/Usuario"
+import { useAxios } from "../util/fetch.hook"
 
 const URL_BASE = "api/users"
 
@@ -7,12 +7,12 @@ const URL_BASE = "api/users"
  * Obtiene todos los usuarios.
  * @returns Devuelve un array con los usuarios existentes.
  */
-export const obtenerUsuarios = async ()  => {
+export const useObtenerUsuarios = (): [ Usuario[], Error, boolean, Function]  => {
 
-     try {
-           const request = await useAxiosConf.get(`${URL_BASE}/getAll`)
-           return request;   
-     } catch (error) {
-          errorPop("error al intentar conectarse con el servidor.")
-     }
+	const [data, error, loading, doAxios] = useAxios<Usuario[]>({
+		method: "GET",
+		url: `${ URL_BASE }/getAll`,
+	})
+
+	return [data, error, loading, doAxios]
 }

@@ -17,11 +17,7 @@ const Productos = () => {
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
 
-  const [productoFilterDefault, setProductoFilterDefault] = useState({"nombre": "",
-                                                                      "codigo": "",
-                                                                      "precio": "",
-                                                                      "marca": "",
-                                                                    })
+  const [productoFilterDefault] = useState({})
   const [productoFilter, setProductoFilter] = useState(null)
 
   const [productos, errorObtenerProductos, obteniendoProductos, obtenerProductos] = useObtenerProductos()
@@ -55,9 +51,9 @@ const Productos = () => {
 
   useEffect(() => { productoFilter != null ? obtenerProductos(productoFilter) : obtenerProductos(productoFilterDefault)  }, [productoFilter])
 
-  const onGetByCode = (code) => {
+/*   const onGetByCode = (code) => {
      obtenerProductoByCodigo(code)
-  }
+  } */
 
   const onBorrado = async (productosIds) => {
      const request = await borradoMultipleProductos(productosIds)

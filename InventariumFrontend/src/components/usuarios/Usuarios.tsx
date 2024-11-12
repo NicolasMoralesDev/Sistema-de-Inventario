@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import TablaUsuarios from './TablaUsuarios'
 import { Helmet }  from 'react-helmet'
-import { obtenerUsuarios } from '../../Hooks/fetch/Usuarios.hook'
+import { useObtenerUsuarios } from '../../Hooks/fetch/Usuarios.hook'
+import { errorPop, loadingPop } from '../../Hooks/util/messages/alerts'
 
 const Usuarios =  () => {
     
-    const [ usuarios, setUsuarios ] = useState([])
+    const [usuarios, errorObtenerUsuarios, obteniendoUsuarios, obtenerUsuarios] = useObtenerUsuarios()
 
-    const onFetch = async () => {
-        const request : any = await obtenerUsuarios()
-        setUsuarios(request.data)
-    }
+    useEffect(() => { obteniendoUsuarios && loadingPop("Obteniendo Usuarios...", "usuarios") },  [obteniendoUsuarios]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
-    useEffect(() => { onFetch() }, [])
+    useEffect(() => { errorObtenerUsuarios && errorPop(errorObtenerUsuarios?.message, "usuarios") }, [errorObtenerUsuarios])
+
+    useEffect(() => { obtenerUsuarios() }, [])
 
   return (
     <div>
@@ -22,7 +22,8 @@ const Usuarios =  () => {
         <link rel="canonical" href="http://mysite.com/example" />
     </Helmet>
     <TablaUsuarios
-       dataSourse={ usuarios }
+      dataSourse={ usuarios }
+      loading={ obteniendoUsuarios }
     />
     </div>
   )

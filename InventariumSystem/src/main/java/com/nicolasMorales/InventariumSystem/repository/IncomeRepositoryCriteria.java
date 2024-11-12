@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,10 @@ public class IncomeRepositoryCriteria {
 
             if (filtro.proveedor() != null) {
                 predicates.add(cb.equal(root.get("supplier").get("nombre"), filtro.proveedor()));
+            }
+            if (filtro.fecha() != null) {
+                LocalDate fechaFiltro = filtro.fecha().toLocalDate(); // Convertimos a LocalDate para eliminar la hora
+                predicates.add(cb.equal(cb.function("DATE", LocalDate.class, root.get("dateIncome")), fechaFiltro));
             }
             cr.select(root).where(predicates.toArray(new Predicate[0]));
 

@@ -5,6 +5,7 @@ import { Provedor } from "../../../../classes/Provedor"
 import { FECHA_FORMATO_BARRAS } from "../../../../constants/fechasFarmatos"
 import { loadingPop } from "../../../../Hooks/util/messages/alerts"
 import { useObtenerProveedores } from "../../../../Hooks/fetch/Provedores.hook"
+import dayjs from "dayjs"
 
 const IngresosFiltro = ({ obtenerIngresos }) => {
   const [form] = useForm()
@@ -35,8 +36,13 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
           >
             <Row gutter={ [22, 22] }>
               <Col span={ 5 }>
-                <Form.Item label="Fecha" name="fecha">
-                  <DatePicker format={ FECHA_FORMATO_BARRAS }/>
+                <Form.Item label="Fecha" name="fecha" className="w-full">
+                  <DatePicker 
+                    allowClear 
+                    maxDate={ dayjs(FECHA_FORMATO_BARRAS) }
+                    format={ {
+                      format: FECHA_FORMATO_BARRAS
+                      } }/>
                 </Form.Item>
               </Col>
               <Col span={ 5 }>

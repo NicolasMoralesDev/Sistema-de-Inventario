@@ -30,10 +30,10 @@ public class ProductRepositoryCriteria {
             root.fetch("categoria", JoinType.LEFT);
 
             if (filtro.nombre() != null && !filtro.nombre().isEmpty()) {
-                predicates.add(cb.equal(root.get("nombre"), "%" + filtro.nombre() + "%"));
+                predicates.add(cb.like(root.get("nombre"), "%" + filtro.nombre() + "%"));
             }
             if (filtro.categoria() != null && !filtro.categoria().isEmpty()) {
-                predicates.add(cb.like(root.get("categoria").get("titulo"), "%" + filtro.categoria() + "%"));
+                predicates.add(cb.equal(root.get("categoria").get("titulo"), "%" + filtro.categoria() + "%"));
             }
             if (filtro.marca() != null && !filtro.marca().isEmpty()) {
                 predicates.add(cb.like(root.get("marca"), "%" + filtro.marca() + "%"));

@@ -81,7 +81,7 @@ const TablaProvedores = (props) => {
       </Space>
       <Table
         size="small"
-        bordered={ true }
+        bordered
         rowKey={ (provedor: Provedor) => provedor.id.toString() }
         dataSource={ dataSourse }
         columns={ columns }
