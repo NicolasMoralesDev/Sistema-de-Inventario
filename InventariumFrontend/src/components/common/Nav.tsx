@@ -4,6 +4,7 @@ import logo from "../../assets/Inventarium-SystemP.png"
 import { LogoutOutlined } from "@ant-design/icons"
 import { onLogOut } from "../../Hooks/util/auth.hook"
 import { useGetNombreUsuario } from "../../Hooks/util/localStorage/Auth"
+import { VERSION } from "../../constants/version"
 
 const Nav = () => {
 
@@ -11,9 +12,10 @@ const Nav = () => {
 
   return (
     <section className="p-5 flex justify-between items-center xl:flex-row flex-col">
+        <p>V { VERSION }</p>
       <nav className="h-1/4" style={ { margin: "auto" } }>
         <img src={ logo } alt="logo-inventario" width="290rem" loading="lazy" />
-      </nav>
+      </nav> 
       <h2>{ nombreUsuario }</h2>
       <Tooltip title="Cerrar sesi&#972;n">
         <Popconfirm
