@@ -58,6 +58,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
                 <Form.Item label="Usuario" name="usuario">
                  <Select
                     allowClear
+                    placeholder="seleccione"
                     options={ usuarios?.map((usuario: Usuario) => ({
                       key: usuario.dni,
                       label: usuario.nombreCompleto,
@@ -70,6 +71,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
                 <Form.Item label="Proveedor" name="proveedor">
                   <Select
                     allowClear
+                    placeholder="seleccione"
                     options={ proveedores?.map((proveedor: Provedor) => ({
                       key: proveedor.id,
                       label: proveedor.nombre,

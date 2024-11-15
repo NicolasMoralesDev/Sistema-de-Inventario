@@ -12,7 +12,7 @@ const Nav = () => {
 
   return (
     <section className="p-5 flex justify-between items-center xl:flex-row flex-col">
-        <p>V { VERSION }</p>
+      <p className="p-3">V { VERSION }</p>
       <nav className="h-1/4" style={ { margin: "auto" } }>
         <img src={ logo } alt="logo-inventario" width="290rem" loading="lazy" />
       </nav> 

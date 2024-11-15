@@ -34,6 +34,7 @@ const ProductosFiltro = ({ obtenerProductos, categorias }) => {
                 <Form.Item label="Categoria" name="categoria">
                   <Select
                     allowClear
+                    placeholder="seleccione"
                     options={ categorias?.map((categoria: Categoria) => ( {
                       key: categoria.titulo,
                       label: categoria.titulo,

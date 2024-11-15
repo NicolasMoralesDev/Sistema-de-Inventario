@@ -3,3 +3,10 @@
    height: 100vh;
    z-index: -1;
 }
+
+@media (max-width: 1100px) {
+   .login-container-form {
+     height: 100vh;
+     background-color: rgb(12 74 110);
+   }
+ }

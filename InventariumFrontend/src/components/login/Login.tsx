@@ -34,7 +34,7 @@ const Login = () => {
           Video no soportado.
         </video>
       </div>
-      <div>
+      <div className="login-container-form">
         <LoginForm onLogin={ onLogin } />
       </div>
     </>

@@ -146,6 +146,7 @@ import './estilos/formIngresos.css'
                   ]}
                 >
                   <Select
+                      placeholder="seleccione"
                       options={ 
                         proveedores?.map((proveedor : Provedor ) => (
                             {
