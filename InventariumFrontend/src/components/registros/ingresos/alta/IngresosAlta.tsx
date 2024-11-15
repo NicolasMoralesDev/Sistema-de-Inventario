@@ -11,7 +11,7 @@ import { registrarIngresos } from '../../../../Hooks/fetch/Ingresos.hook'
 import { editarProvedor, registrarProvedor, useObtenerProveedores } from '../../../../Hooks/fetch/Provedores.hook' 
 import ProvedoresModal from '../../provedores/ProvedoresModal' 
 import ProvedorModal from '../../provedores/ProvedorModal' 
-import { Provedor } from '../../../../classes/Provedor' 
+import { Proveedor } from '../../../../classes/Proveedor' 
 
 const IngresosAlta = () => {
 
@@ -26,7 +26,7 @@ const IngresosAlta = () => {
     const [visibleProveReg, setVisibleProveReg] = useState(false) 
     const [visibleProveEdit, setVisibleProveEdit] = useState(false) 
     const [productoEditar, setProductoEditar] = useState([])
-    const [provedorEditar, setProvedorEditar] = useState<Provedor>()
+    const [provedorEditar, setProvedorEditar] = useState<Proveedor>()
 
     // Estados para provedores
     const [provedorCargado, setProvedorCargado] = useState(false)

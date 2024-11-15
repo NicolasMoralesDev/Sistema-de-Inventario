@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Button, Card, Col, DatePicker, Form, Input, Row, Select } from "antd"
 import useForm from "antd/lib/form/hooks/useForm"
-import { Provedor } from "../../../../classes/Provedor"
+import { Proveedor } from "../../../../classes/Proveedor"
 import { FECHA_FORMATO_BARRAS } from "../../../../constants/fechasFarmatos"
 import { errorPop, loadingPop } from "../../../../Hooks/util/messages/alerts"
 import { useObtenerProveedores } from "../../../../Hooks/fetch/Provedores.hook"
@@ -72,7 +72,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
                   <Select
                     allowClear
                     placeholder="seleccione"
-                    options={ proveedores?.map((proveedor: Provedor) => ({
+                    options={ proveedores?.map((proveedor: Proveedor) => ({
                       key: proveedor.id,
                       label: proveedor.nombre,
                       value: proveedor.nombre,

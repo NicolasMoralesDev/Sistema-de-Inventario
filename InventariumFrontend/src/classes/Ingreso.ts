@@ -1,5 +1,5 @@
 import { Producto } from "./Producto"
-import { Provedor } from "./Provedor"
+import { Provedor } from "./Proveedor"
 
 export class Ingreso {
     id : Number

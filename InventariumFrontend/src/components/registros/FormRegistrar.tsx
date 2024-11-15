@@ -8,12 +8,12 @@ import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth'
 import { useObtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook' 
 import { usePermission } from '../../Hooks/util/auth.hook' 
 import { ROLE_DUENIO } from '../../constants/permisos' 
-import { Provedor } from '../../classes/Provedor' 
+import { Proveedor } from '../../classes/Proveedor' 
 import { Categoria } from '../../classes/Categoria' 
 import './estilos/formIngresos.css'
 
  interface FormRegistrar {
-    proveedores?: Provedor[] 
+    proveedores?: Proveedor[] 
     categorias: Categoria[] 
     onSend: Function 
     onRegister: Function 
@@ -148,7 +148,7 @@ import './estilos/formIngresos.css'
                   <Select
                       placeholder="seleccione"
                       options={ 
-                        proveedores?.map((proveedor : Provedor ) => (
+                        proveedores?.map((proveedor : Proveedor ) => (
                             {
                               key: proveedor.id,
                               label: proveedor.nombre,

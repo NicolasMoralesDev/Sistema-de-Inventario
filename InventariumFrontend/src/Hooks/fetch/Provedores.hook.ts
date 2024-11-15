@@ -1,6 +1,6 @@
 import { errorPop } from "../util/messages/alerts"
 import useAxiosConf, { useAxios } from "../util/fetch.hook"
-import { Provedor } from "../../classes/Provedor"
+import { Provedor } from "../../classes/Proveedor"
 
 const URL_BASE = "api/v1/supplier"
 

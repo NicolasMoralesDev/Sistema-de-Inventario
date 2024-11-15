@@ -1,5 +1,5 @@
 
-export class Provedor {
+export class Proveedor {
     id : Number
     nombre : String
     correo : String

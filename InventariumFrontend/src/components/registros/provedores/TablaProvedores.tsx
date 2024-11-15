@@ -4,7 +4,7 @@ import { DeleteFilled, EditOutlined } from "@ant-design/icons"
 import { defaultPagination } from "../../../Hooks/util/DefaultPagination" 
 import { usePermission } from "../../../Hooks/util/auth.hook" 
 import { ROLE_DUENIO } from "../../../constants/permisos" 
-import { Provedor } from "../../../classes/Provedor" 
+import { Provedor } from "../../../classes/Proveedor" 
 
 const TablaProvedores = (props) => {
 

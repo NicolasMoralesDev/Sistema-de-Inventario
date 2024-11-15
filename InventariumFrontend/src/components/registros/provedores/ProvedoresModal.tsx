@@ -4,7 +4,7 @@ import TablaProvedores from './TablaProvedores'
 import { borradoMultipleProvedores } from '../../../Hooks/fetch/Provedores.hook'
 import { successPop } from '../../../Hooks/util/messages/alerts'
 import "./estilos/ModalProvedores.css"
-import { Provedor } from '../../../classes/Provedor'
+import { Provedor } from '../../../classes/Proveedor'
 
 interface ProvedoresModal {
     proveedores?: Provedor[] 
