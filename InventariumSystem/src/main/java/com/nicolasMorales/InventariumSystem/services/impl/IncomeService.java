@@ -4,7 +4,7 @@ import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCat
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTOResponse;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
-import com.nicolasMorales.InventariumSystem.dto.filter.IncomeFilter;
+import com.nicolasMorales.InventariumSystem.dto.filter.RecordFilter;
 import com.nicolasMorales.InventariumSystem.entity.Income;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.entity.Supplier;
@@ -58,10 +58,10 @@ public class IncomeService implements IIncomeService {
     private IncomeRepositoryCriteria incomeRepoCriteria;
 
     /**
-     * @see IIncomeService#getAllIncome(IncomeFilter) ()
+     * @see IIncomeService#getAllIncome(RecordFilter) ()
      */
     @Override
-    public List<IncomeDTOResponse> getAllIncome(IncomeFilter filtro) throws BussinesException {
+    public List<IncomeDTOResponse> getAllIncome(RecordFilter filtro) throws BussinesException {
         logger.info("Obteniendo registros de ingresos...");
         return incomeMapper.incomeListToIncomeDTOList(incomeRepoCriteria.findIngresosByFilter(filtro));
     }

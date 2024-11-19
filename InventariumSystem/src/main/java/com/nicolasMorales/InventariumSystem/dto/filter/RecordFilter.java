@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
  * @author Nicolas Morales.
  * DTO para filtrar ingresos.
  */
-public record IncomeFilter(LocalDateTime fecha, String usuario, String proveedor) {
+public record RecordFilter(LocalDateTime fecha, String usuario, String proveedor) {
 }

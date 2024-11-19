@@ -7,10 +7,11 @@ import com.nicolasMorales.InventariumSystem.services.IProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -207,10 +208,13 @@ public class ControllerProduct {
      */
     @PostMapping(value = "/generate/pdf")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> downloadPDF(@RequestBody List<UUID> productosIds) throws BussinesException, IOException {
+    public ResponseEntity<?> downloadPDF(@RequestBody List<UUID> productosIds) throws BussinesException {
         try {
-            Map<String, String> response = productServ.downloadPDF(productosIds);
-            return ResponseEntity.ok().body(response);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(ContentDisposition.attachment().filename("mi_archivo.pdf").build());
+
+            return new ResponseEntity<>(productServ.downloadPDF(productosIds).toByteArray(), headers, HttpStatus.OK);
         } catch (BussinesException e) {
             logger.error(e.getMessage());
             throw new BussinesException("Error " + e.getMessage());

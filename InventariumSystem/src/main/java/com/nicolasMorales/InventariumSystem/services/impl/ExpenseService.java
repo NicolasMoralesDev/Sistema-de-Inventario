@@ -3,12 +3,14 @@ package com.nicolasMorales.InventariumSystem.services.impl;
 import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCategory;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
+import com.nicolasMorales.InventariumSystem.dto.filter.RecordFilter;
 import com.nicolasMorales.InventariumSystem.entity.Expense;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.entity.UserSec;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.mapper.ExpenseMapper;
 import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
+import com.nicolasMorales.InventariumSystem.repository.ExpenseRepositoryCriteria;
 import com.nicolasMorales.InventariumSystem.repository.IExpenseRepository;
 import com.nicolasMorales.InventariumSystem.repository.IUserRepository;
 import com.nicolasMorales.InventariumSystem.services.IExpenseService;
@@ -27,6 +29,9 @@ public class ExpenseService implements IExpenseService {
 
     @Autowired
     private IExpenseRepository expenseRepository;
+
+    @Autowired
+    private ExpenseRepositoryCriteria expenseRepositoryCriteria;
 
     @Autowired
     private IUserRepository userRepository;
@@ -66,13 +71,13 @@ public class ExpenseService implements IExpenseService {
     }
 
     /**
-     * @see IExpenseService#getAllExpense()
+     * @see IExpenseService#getAllExpense(RecordFilter filter)
      */
     @Override
-    public List<ExpenseDTOResponse> getAllExpense() throws BussinesException {
+    public List<ExpenseDTOResponse> getAllExpense(RecordFilter filter) throws BussinesException {
         try {
             logger.info("Obteniendo registros de egresos...");
-            List <Expense> expenseList = expenseRepository.findAll();
+            List <Expense> expenseList = expenseRepositoryCriteria.findEgresosByFilter(filter);
             if (expenseList == null) {
                 throw new BussinesException("No se encontraron registros de egresos");
             } else {

@@ -60,7 +60,7 @@ const Productos = () => {
   }
 
   const onGeneratePdf = async (productosIds) => {
-    await genearReportePDFproductos(productosIds)
+     await genearReportePDFproductos(productosIds)
   }
 
   const onEdit = (productoEdit) => {

@@ -30,6 +30,12 @@
 			<version>6.5.2.Final</version>
 		</dependency>
 
+		<!-- Para enviar correos  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- Spring Security para la securizacion de la Api -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -28,19 +28,19 @@ const FormBusqueda = ({ onGetByCode }) => {
           <Row className='w-full' justify='center'>
               <Col span={ 30 } className='xl:w-1/3 lg:w-1/3'>
                   <Form.Item
-                      label="Busqueda por codigo de barras"
+                      label="Busqueda por código de barras"
                       name="codigo"
                       className='pl-10 w-full'
                       rules={[
                           {
                               required: true,
-                              message:'El codigo de barras es obligatorio!',
+                              message:'El código de barras es obligatorio!',
                               transform: (value) => value.trim()
                           },
                       ]}
                   >
                       <InputNumber
-                          placeholder='Ingrese el codigo de barras...'
+                          placeholder='Ingrese el código de barras...'
                           maxLength={ 25 }
                           minLength={ 5 }
                           className='w-10/12'

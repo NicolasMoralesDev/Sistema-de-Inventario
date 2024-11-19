@@ -1,29 +1,28 @@
 import React, { useEffect } from "react"
-import { Button, Card, Col, DatePicker, Form, Input, Row, Select } from "antd"
+import { Button, Card, Col, DatePicker, Form, Row, Select } from "antd"
 import useForm from "antd/lib/form/hooks/useForm"
-import { Proveedor } from "../../../../classes/Proveedor"
-import { FECHA_FORMATO_BARRAS } from "../../../../constants/fechasFarmatos"
-import { errorPop, loadingPop } from "../../../../Hooks/util/messages/alerts"
-import { useObtenerProveedores } from "../../../../Hooks/fetch/Provedores.hook"
 import dayjs from "dayjs"
-import { useObtenerUsuarios } from "../../../../Hooks/fetch/Usuarios.hook"
-import { Usuario } from "../../../../classes/Usuario"
+import { useObtenerUsuarios } from "../../Hooks/fetch/Usuarios.hook"
+import { useObtenerProveedores } from "../../Hooks/fetch/Provedores.hook"
+import { errorPop } from "../../Hooks/util/messages/alerts"
+import { FECHA_FORMATO_BARRAS } from "../../constants/fechasFarmatos"
 
-const IngresosFiltro = ({ obtenerIngresos }) => {
+interface RegistroFiltro {
+  obtenerIngresos : Function;
+  isIngreso? : boolean;
+}
+
+const RegistroFiltro = ({ obtenerIngresos, isIngreso } : RegistroFiltro) => {
   const [form] = useForm()
 
   const [proveedores, errorObtenerProveedores, obteniendoProveedores, obtenerProveedores] = useObtenerProveedores()
 
   const [usuarios, errorObtenerUsuarios, obteniendoUsuarios, obtenerUsuarios] = useObtenerUsuarios()
 
-  /* useEffect(() => { obteniendoUsuarios && loadingPop("Obteniendo Usuarios...", "usuarios") },  [obteniendoUsuarios]) */ // eslint-disable-next-line react-hooks/exhaustive-deps
-
   useEffect(() => { errorObtenerUsuarios && errorPop(errorObtenerUsuarios?.message, "usuarios") }, [errorObtenerUsuarios])
 
   useEffect(() => { obtenerUsuarios() }, [])
   useEffect(() => { obtenerProveedores() },  [])
-
-  useEffect(() => { obteniendoProveedores && loadingPop("Obteniendo Proveedores...", "proveedores") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const handleFinish = (data) => {
     obtenerIngresos(data)
@@ -32,7 +31,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
   return (
     <>
       <Card className="bg-slate-200">
-        <Card title="Filtro de Ingresos">
+        <Card title={ isIngreso ? "Filtro de Ingresos" : "Filtro de Egresos" }>
           <Form
             form={ form }
             name="basic"
@@ -59,7 +58,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
                  <Select
                     allowClear
                     placeholder="seleccione"
-                    options={ usuarios?.map((usuario: Usuario) => ({
+                    options={ usuarios?.map((usuario) => ({
                       key: usuario.dni,
                       label: usuario.nombreCompleto,
                       value: usuario.nombreCompleto,
@@ -67,12 +66,13 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
                   />
                 </Form.Item>
               </Col>
+              { isIngreso &&
               <Col span={ 5 }>
                 <Form.Item label="Proveedor" name="proveedor">
                   <Select
                     allowClear
                     placeholder="seleccione"
-                    options={ proveedores?.map((proveedor: Proveedor) => ({
+                    options={ proveedores?.map((proveedor) => ({
                       key: proveedor.id,
                       label: proveedor.nombre,
                       value: proveedor.nombre,
@@ -80,6 +80,7 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
                   />
                 </Form.Item>
               </Col>
+              }
             </Row>
             <Row>
               <Form.Item>
@@ -98,4 +99,4 @@ const IngresosFiltro = ({ obtenerIngresos }) => {
   );
 };
 
-export default IngresosFiltro;
+export default RegistroFiltro;

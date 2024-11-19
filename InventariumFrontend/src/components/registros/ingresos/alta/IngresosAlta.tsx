@@ -93,7 +93,7 @@ const IngresosAlta = () => {
     
     useEffect(() => { if (statusReg) { successPop(statusReg, "productoReg"), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
     
-    useEffect(() => { obteniendoCategorias &&  loadingPop("Obteniendo Categorias...", "categoriasLoadEgre") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { obteniendoCategorias &&  loadingPop("Obteniendo Categorias...", "categorias") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
     
     useEffect(() => { obteniendoProveedores &&  loadingPop("Obteniendo Proveedores...", "proveedoresLoadEgre") },  [obteniendoProveedores]) // eslint-disable-next-line react-hooks/exhaustive-deps
 

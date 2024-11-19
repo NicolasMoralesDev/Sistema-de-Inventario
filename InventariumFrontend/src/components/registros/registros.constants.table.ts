@@ -22,7 +22,7 @@ export const columnsIngresos = [
       key: 'usuario',
     },
     {
-      title: 'Codigo y producto registrado',
+      title: 'Código y producto registrado',
       dataIndex: 'productos',
       width: "15%",
       key: 'productos',

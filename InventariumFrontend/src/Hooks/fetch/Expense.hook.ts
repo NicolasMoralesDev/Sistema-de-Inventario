@@ -1,4 +1,5 @@
-import useAxiosConf from "../util/fetch.hook"
+import { Ingreso } from "../../classes/Ingreso"
+import useAxiosConf, { useAxios } from "../util/fetch.hook"
 import { errorPop } from "../util/messages/alerts"
 
 const URL_BASE = "api/v1/expense"
@@ -21,14 +22,19 @@ export const registrarEgreso = async (egreso) => {
  * Obtiene todos los registros de egresos
  * @returns Devuelve un listado de registros de egresos.
  */
-export const obtenerEgresos = async (setLoading) => {
+export const useObtenerEgresos = (): [ Ingreso[], Error, boolean, Function] => {
 
-     try {
-        const request = await useAxiosConf.get(`${URL_BASE}/getAll`)
-        return request;
-     } catch (error) {
-        errorPop("Error "+ error)
-     } finally {
-        setLoading(false)
-     }
+	const [data, error, loading, doAxios] = useAxios<Ingreso[]>({
+		method: "POST",
+		triggered: true
+	})
+
+	const trigger = (ingresoFilter) => {
+		doAxios({
+			url: `${ URL_BASE }/getAll`,
+			data: ingresoFilter
+		})
+	}
+	
+	return [data, error, loading, trigger]
 }

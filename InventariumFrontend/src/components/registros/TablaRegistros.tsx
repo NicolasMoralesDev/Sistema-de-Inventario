@@ -3,17 +3,17 @@ import { Table } from "antd"
 import { defaultPagination } from "../../Hooks/util/DefaultPagination" 
 import Menu from "../menu/Menu"
 
-const TablaRegistros = ({ setIngresoEdit, dataSourse, setVisibleEdit, columnas, loading }) => {
+const TablaRegistros = ({ dataSourse, columnas, loading }) => {
 
   /* const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
   const onSelectIngresos = (ingresosSelected) => {
     setIngresosSeleccionados(ingresosSelected)
   } */
 
-  const onEdit = (income) => {
+/*   const onEdit = (income) => {
     setIngresoEdit(income)
     setVisibleEdit(true)
-  }
+  } */
 
   return (
     <div className="p-5 bg-slate-200" style={{

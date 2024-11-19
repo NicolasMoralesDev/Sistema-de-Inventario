@@ -6,7 +6,7 @@ import TablaRegistros from "../../TablaRegistros"
 import { errorPop, loadingPop, successPop } from "../../../../Hooks/util/messages/alerts"
 import useForm from "antd/lib/form/hooks/useForm"
 import { columnsIngresos } from "../../registros.constants.table"
-import IngresosFiltro from "./IngresosFiltro"
+import RegistroFiltro from "../../RegistroFiltro"
 
 const Ingresos = () => {
 
@@ -16,7 +16,7 @@ const Ingresos = () => {
 
   const [statusEdit, setStatusEdit] = useState("")
   
-  const [registroFilterDefault, setRegistroFilterDefault] = useState({})
+  const [registroFilterDefault] = useState({})
 
   const [ingresos, errorObtenerIngresos, obteniendoIngresos, obtenerIngresos] = useObtenerIngresos()
 
@@ -54,12 +54,11 @@ const Ingresos = () => {
           onSend={ onEdit }
         />
       }
-      <IngresosFiltro 
+      <RegistroFiltro 
         obtenerIngresos={ onFilterIngresos }
+        isIngreso
       />
       <TablaRegistros
-        setIngresoEdit={ setIngresoEdit }
-        setVisibleEdit={ setVisibleEdit }
         dataSourse={ ingresos }
         loading={ obteniendoIngresos }
         columnas={ columnsIngresos }

@@ -3,7 +3,7 @@ package com.nicolasMorales.InventariumSystem.controllers.ingresos;
 
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
-import com.nicolasMorales.InventariumSystem.dto.filter.IncomeFilter;
+import com.nicolasMorales.InventariumSystem.dto.filter.RecordFilter;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.IIncomeService;
 import org.slf4j.Logger;
@@ -59,7 +59,7 @@ public class ControllerIncome {
      */
     @PostMapping(value = "/getAll")
     @PreAuthorize("hasAuthority('READ')")
-    public ResponseEntity<?> getIncomes(@RequestBody IncomeFilter filtro){
+    public ResponseEntity<?> getIncomes(@RequestBody RecordFilter filtro){
         try {
             return ResponseEntity.ok().body(incomeService.getAllIncome(filtro));
         } catch (Exception e){

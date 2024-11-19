@@ -2,6 +2,7 @@ package com.nicolasMorales.InventariumSystem.services;
 
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
+import com.nicolasMorales.InventariumSystem.dto.filter.RecordFilter;
 import com.nicolasMorales.InventariumSystem.entity.Expense;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 
@@ -27,5 +28,5 @@ public interface IExpenseService {
      *
      * @throws BussinesException Error
      */
-    List<ExpenseDTOResponse> getAllExpense () throws BussinesException;
+    List<ExpenseDTOResponse> getAllExpense (RecordFilter filtro) throws BussinesException;
 }

@@ -5,6 +5,7 @@ import com.nicolasMorales.InventariumSystem.dto.filter.ProductFilter;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,5 +37,5 @@ public interface IProductService{
 
     ProductDTO getProductsByCode(long code) throws BussinesException;
 
-    Map<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException;
+    ByteArrayOutputStream downloadPDF(List<UUID> productosIds) throws BussinesException;
 }

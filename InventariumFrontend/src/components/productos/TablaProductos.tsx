@@ -50,7 +50,7 @@ const TablaProductos = (props) => {
 
     const columns = [
         {
-            title: 'Codigo',
+            title: 'Código',
             dataIndex: 'codigo',
             width: "10%",
             key: 'codigo',
@@ -111,7 +111,7 @@ const TablaProductos = (props) => {
             width: "10%",
             key: 'acciones',
             render: (producto) => <>
-                <Button title="Editar Producto" onClick={ () => onEdit(producto) } disabled={ isCajero } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined /></Button>
+                <Button title="Editar Producto" onClick={ () => onEdit(producto) } disabled={ !!isCajero } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined /></Button>
             </>
         },
     ];

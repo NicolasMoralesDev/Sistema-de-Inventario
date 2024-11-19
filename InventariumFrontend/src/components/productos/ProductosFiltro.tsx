@@ -54,8 +54,8 @@ const ProductosFiltro = ({ obtenerProductos, categorias }) => {
                 </Form.Item>
               </Col>
               <Col span={ 5 }>
-                <Form.Item label="Codigo de barras" name="codigo">
-                  <Input allowClear placeholder="Codigo del producto" />
+                <Form.Item label="Código de barras" name="codigo">
+                  <Input allowClear placeholder="Código del producto" />
                 </Form.Item>
               </Col>
             </Row>

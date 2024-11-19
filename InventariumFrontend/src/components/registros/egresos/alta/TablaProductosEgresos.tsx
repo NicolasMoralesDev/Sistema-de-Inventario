@@ -40,7 +40,7 @@ const TablaProductosEgresos = (props) => {
 
     const columns = [
         {
-            title: 'Codigo',
+            title: 'Código',
             dataIndex: 'codigo',
             width: "10%",
             key: 'codigo',

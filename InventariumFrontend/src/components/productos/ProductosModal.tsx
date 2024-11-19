@@ -83,12 +83,12 @@ const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, o
                             <Row gutter={ [5, 1] } className="w-full">
                                 <Col span={ 11 } >
                                     <Form.Item
-                                        label="Codigo:"
+                                        label="Código:"
                                         name="codigo"
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'El codigo es obligatorio!',
+                                                message: 'El código es obligatorio!',
                                             },
                                         ]}
                                     >

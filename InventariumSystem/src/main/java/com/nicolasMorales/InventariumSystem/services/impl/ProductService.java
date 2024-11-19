@@ -261,24 +261,15 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Map<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException {
+    public ByteArrayOutputStream downloadPDF(List<UUID> productosIds) throws BussinesException {
         try {
             List<ProductDTO> productList = new ArrayList<>();
-            Map<String, String> response = new HashMap<>();
 
             for (UUID productID : productosIds) {
                 productList.add(productMapper.productaProductDTO(this.getProductsById(productID)));
             }
 
-            ByteArrayOutputStream pdfContent = pdfService.generatePdfProductos(productList);
-            String fileName = "informacion_productos-" + UUID.randomUUID() + ".pdf";
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.write(targetLocation, pdfContent.toByteArray());
-            String fileDownloadUri = "http://localhost:8080" + "/api/v1/pdf/download/"+ fileName;
-
-            response.put("url", fileDownloadUri);
-
-            return response;
+            return pdfService.generatePdfProductos(productList);
         } catch (BussinesException e) {
             throw new BussinesException(e.getMessage());
         } catch (IOException e) {

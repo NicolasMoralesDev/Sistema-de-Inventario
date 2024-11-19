@@ -177,18 +177,18 @@ import './estilos/formIngresos.css'
               <Row gutter={ [50,50] }>
                 <Col span={ 5 }>
                  <Form.Item
-                   label="Codigo de Barras"
+                   label="Código de Barras"
                    name="codigo"
                    rules={[
                      {
                        required: true,
-                       message: 'Ingrese el codigo!',
+                       message: 'Ingrese el código!',
                      },
                    ]}
                   >
                   <InputNumber
                      className='w-10/12'
-                     placeholder='Codigo de barras'
+                     placeholder='Código de barras'
                      min={ 0 }
                      minLength={ 4 }
                      onChange={ handleChange }

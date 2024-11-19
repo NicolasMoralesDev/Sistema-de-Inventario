@@ -2,6 +2,7 @@ package com.nicolasMorales.InventariumSystem.controllers.egresos;
 
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
+import com.nicolasMorales.InventariumSystem.dto.filter.RecordFilter;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.IExpenseService;
 import org.slf4j.Logger;
@@ -55,11 +56,11 @@ public class ControllerExpense {
      * Controllador para obtener todos los registros de egresos.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un listado de Registro de egresos.
      */
-    @GetMapping(value = "/getAll")
+    @PostMapping(value = "/getAll")
     @PreAuthorize("hasAuthority('READ')")
-    public ResponseEntity<?> getExpense(){
+    public ResponseEntity<?> getExpense(@RequestBody RecordFilter filter){
         try {
-            List<ExpenseDTOResponse> expenseList = expenseService.getAllExpense();
+            List<ExpenseDTOResponse> expenseList = expenseService.getAllExpense(filter);
             return  ResponseEntity.ok().body(expenseList);
         } catch (BussinesException e){
             logger.error(e.getMessage());
