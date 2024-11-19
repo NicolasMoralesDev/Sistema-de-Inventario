@@ -18,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -44,8 +41,6 @@ public class ProductService implements IProductService {
 
     @Autowired
     private ProductRepositoryCriteria productRepository;
-
-    private final Path fileStorageLocation = Paths.get("pdf-storage").toAbsolutePath().normalize();
 
     /**
      * Metodo para registrar un Producto.
@@ -260,6 +255,10 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Metodo para genearar reportes pdf de los productos selecionados.
+     * @param productosIds Recibe elos iDS de bde los productos.
+     */
     @Override
     public ByteArrayOutputStream downloadPDF(List<UUID> productosIds) throws BussinesException {
         try {
