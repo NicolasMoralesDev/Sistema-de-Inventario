@@ -1,5 +1,6 @@
 package com.nicolasMorales.InventariumSystem.controllers.productos;
 
+import com.nicolasMorales.InventariumSystem.dto.EmailBodyDTO;
 import com.nicolasMorales.InventariumSystem.dto.filter.ProductFilter;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
@@ -215,6 +216,28 @@ public class ControllerProduct {
         } catch (BussinesException e) {
             logger.error(e.getMessage());
             throw new BussinesException("Error " + e.getMessage());
+        }
+    }
+
+    /**
+     * Controllador para enviar correos con reportes.
+     * @param mail Recibe los datos a enviar.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
+     */
+    @PostMapping(value = "/enviar/archivo")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> sendMailconArchivo(@RequestBody EmailBodyDTO mail){
+        HashMap<String, String> response = new HashMap<>();
+
+        try {
+            productServ.sendEmail(mail);
+            response.put("msg", "Correo con reporte de productos enviado correctamente!");
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            response.put("error", e.getMessage());
+            return  ResponseEntity.badRequest().body("Error "+ response);
         }
     }
 }

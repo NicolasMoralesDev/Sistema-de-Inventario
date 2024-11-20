@@ -1,6 +1,7 @@
 package com.nicolasMorales.InventariumSystem.services.impl;
 
 import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCategory;
+import com.nicolasMorales.InventariumSystem.dto.EmailBodyDTO;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.dto.filter.ProductFilter;
 import com.nicolasMorales.InventariumSystem.entity.Product;
@@ -8,7 +9,9 @@ import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IProductRepository;
 import com.nicolasMorales.InventariumSystem.repository.ProductRepositoryCriteria;
+import com.nicolasMorales.InventariumSystem.services.IEmailService;
 import com.nicolasMorales.InventariumSystem.services.IProductService;
+import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,9 @@ public class ProductService implements IProductService {
 
     @Autowired
     private PdfService pdfService;
+
+    @Autowired
+    private IEmailService emailService;
 
     @Autowired
     private ProductRepositoryCriteria productRepository;
@@ -267,12 +273,20 @@ public class ProductService implements IProductService {
             for (UUID productID : productosIds) {
                 productList.add(productMapper.productaProductDTO(this.getProductsById(productID)));
             }
-
             return pdfService.generatePdfProductos(productList);
         } catch (BussinesException e) {
             throw new BussinesException(e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean sendEmail(EmailBodyDTO mail) throws IOException, MessagingException {
+
+        List<ProductDTO> productList = productRepo.findAll().stream().map(producto -> productMapper.productaProductDTO(producto)).toList();
+        ByteArrayOutputStream pdf = pdfService.generatePdfProductos(productList);
+
+        return emailService.sendEmail(new EmailBodyDTO("Se adjunta reporte de mercaderia:", "solanavega8@gmail.com", "Envio reporte de Mercaderia"), pdf);
     }
 }

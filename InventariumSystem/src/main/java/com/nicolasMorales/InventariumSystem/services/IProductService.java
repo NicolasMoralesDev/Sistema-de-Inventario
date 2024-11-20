@@ -1,11 +1,14 @@
 package com.nicolasMorales.InventariumSystem.services;
 
+import com.nicolasMorales.InventariumSystem.dto.EmailBodyDTO;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.dto.filter.ProductFilter;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
+import jakarta.mail.MessagingException;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,4 +39,6 @@ public interface IProductService{
     ProductDTO getProductsByCode(long code) throws BussinesException;
 
     ByteArrayOutputStream downloadPDF(List<UUID> productosIds) throws BussinesException;
+
+    boolean sendEmail(EmailBodyDTO mail) throws IOException, MessagingException;
 }

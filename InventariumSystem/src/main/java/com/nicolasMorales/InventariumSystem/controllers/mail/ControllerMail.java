@@ -33,8 +33,29 @@ public class ControllerMail {
      * @param mail Recibe los datos a enviar.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
      */
-    @PostMapping(value = "/send")
+    @PostMapping(value = "/enviar")
     public ResponseEntity<?> sendMail(@RequestBody EmailBodyDTO mail){
+        HashMap<String, String> response = new HashMap<>();
+
+        try {
+            emailService.sendEmail(mail);
+            response.put("msg", "Correo enviado correctamente!");
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            response.put("error", e.getMessage());
+            return  ResponseEntity.badRequest().body("Error "+ response);
+        }
+    }
+
+    /**
+     * Controllador para enviar correos con reportes.
+     * @param mail Recibe los datos a enviar.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
+     */
+    @PostMapping(value = "/enviar/archivo")
+    public ResponseEntity<?> sendMailconArchivo(@RequestBody EmailBodyDTO mail){
         HashMap<String, String> response = new HashMap<>();
 
         try {
