@@ -28,6 +28,7 @@
     "typescript": "^5.5.4",
     "universal-cookie": "^7.1.4",
     "use-state-if-mounted": "^1.0.7",
+    "vite-plugin-pwa": "^0.21.0",
     "vite-plugin-terminal": "^1.2.0"
   },
   "devDependencies": {
