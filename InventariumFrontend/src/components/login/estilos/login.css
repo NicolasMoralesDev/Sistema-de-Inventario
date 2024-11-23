@@ -4,9 +4,16 @@
    z-index: -1;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1400px) {
    .login-container-form {
      height: 100vh;
      background-color: rgb(12 74 110);
    }
- }
+}
+
+@media (max-width: 1100px) and (orientation: landscape) {
+  .login-container-form {
+    height: 100vh;
+    background-color: rgb(12 74 110);
+  }
+}

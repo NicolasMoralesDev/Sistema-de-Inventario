@@ -4,6 +4,7 @@ import { Tabs } from 'antd'
 import { useNavigate } from 'react-router-dom';
 import { usePermission } from '../../Hooks/util/auth.hook';
 import { ROLE_CAJERO, ROLE_DUENIO } from '../../constants/permisos';
+import "./menu.css"
 
 const Menu = () => {
 
@@ -26,7 +27,7 @@ const Menu = () => {
       activeKey={ location.pathname.slice(1) }
       items={ items }
       className='bg-slate-100	p-5'
-      onChange={ (page) => {navigate(`/${page}`)} }
+      onChange={ (page) => { navigate(`/${page}`) } }
       indicator={ { size: (origin) => origin + 20, align: "center" } }
     />
   </>

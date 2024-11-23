@@ -19,13 +19,17 @@ const TablaProductos = (props) => {
 
     const isCajero = usePermission(ROLE_CAJERO)
 
-    const isDisabled = () => {
-        if (productosSeleccionados.length > 0) {
-           return true 
-        } else {
-            return false
+    const isDisabled = () => productosSeleccionados.length > 0 ? true : false
+
+    const verificarColor = (stock) => {
+            if(stock < 10)  {
+                return "volcano-inverse"
+             } else if ( stock < 20) {
+                return "#916604"
+             } else {
+                return "#0b7e32"
         }
-    }
+    } 
 
     const onSelectProductos = (productsSelected) => {
         setProductosSeleccionados(productsSelected)
@@ -61,7 +65,7 @@ const TablaProductos = (props) => {
             dataIndex: 'cant',
             width: "5%",
             sorter: (a, b) => a.cant - b.cant,
-            render: (cant) => <Tag color={ cant < 10 ? "volcano-inverse" : cant < 20 ? "yellow-inverse": "green-inverse" } title={ cant < 10 ? "Stock Minimo" : cant < 20 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
+            render: (cant) => <Tag  color={ verificarColor(cant) } title={ cant < 10 ? "Stock Minimo" : cant < 20 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
             key: 'cant',
         },
         {

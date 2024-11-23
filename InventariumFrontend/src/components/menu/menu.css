@@ -1,0 +1,7 @@
+:where(.css-dev-only-do-not-override-ccdg5a).ant-tabs 
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: rgb(53, 108, 147);
+    gap: 1px;
+    font-weight: bold;
+    font-size: 1em;
+}
