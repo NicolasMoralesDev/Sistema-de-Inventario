@@ -1,7 +1,7 @@
 import { errorPop } from "../util/messages/alerts"
 import useAxiosConf, { useAxios } from "../util/fetch.hook"
 import { Producto } from "../../classes/Producto"
-import dayjs, { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 import { FECHA_FORMATO_BARRAS } from "../../constants/fechasFarmatos"
 
 const URL_BASE = "api/v1/product"
@@ -43,7 +43,7 @@ export const useObtenerProductos = (): [ Producto[], Error, boolean, Function]  
  * Busca productos por su código de barras.
  * @returns Devuelve el producto relacionado con el código.
  */
-export const useObtenerProductoByCodigo = ():  [Producto, Error, boolean, Function]  => {
+export const useObtenerProductoByCodigo = () : [Producto, Error, boolean, Function] => {
 	const [data, error, loading, doAxios] = useAxios<Producto>({
 		method: "GET",
 	})
@@ -61,16 +61,19 @@ export const useObtenerProductoByCodigo = ():  [Producto, Error, boolean, Functi
  * Realiza borrado multiple de productos.
  * @returns Devuelve un listado de productos.
  */
-export const borradoMultipleProductos = async (productosIds) => {
-	try {
-		const request = await useAxiosConf.post(
-			`${URL_BASE}/delete/bulk`,
-			productosIds,
-		);
-		return request;
-	} catch (error) {
-		errorPop("error al intentar conectarse con el servidor.")
+export const useBorradoMultipleProductos = () : [any, Error, boolean, Function] => {
+	const [data, error, loading, doAxios] = useAxios<any>({
+		method: "DELETE",
+	})
+
+	const trigger = (productosIds) => {
+		doAxios({
+			url: `${ URL_BASE }/delete/bulk`,
+			data: productosIds
+		})
 	}
+
+	return [data, error, loading, trigger]
 }
 
 /**

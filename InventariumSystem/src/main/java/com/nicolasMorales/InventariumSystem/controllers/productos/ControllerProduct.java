@@ -164,7 +164,7 @@ public class ControllerProduct {
      * @param ids Recibe una Lista de UUID con los ids de los  producto solicitado.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
-    @PostMapping(value = "/delete/bulk")
+    @DeleteMapping(value = "/delete/bulk")
     @PreAuthorize("hasAuthority('MODIFICACION')")
     public ResponseEntity<?> deleteProductsById(@RequestBody List<UUID> ids) {
         HashMap<String, String> response = new HashMap<>();

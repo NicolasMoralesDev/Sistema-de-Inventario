@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from "react-helmet"
 import { useObtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
-import { borradoMultipleProductos, crearProducto, genearReportePDFproductos, useEditarProducto, useObtenerProductoByCodigo, useObtenerProductos } from "../../Hooks/fetch/Productos.hook"
+import { crearProducto, genearReportePDFproductos, useBorradoMultipleProductos, 
+         useEditarProducto, useObtenerProductoByCodigo, useObtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
 import useForm from "antd/lib/form/hooks/useForm"
@@ -23,40 +24,50 @@ const Productos = () => {
   const [productos, errorObtenerProductos, obteniendoProductos, obtenerProductos] = useObtenerProductos()
   const [categorias, errorObtenerCategorias, obteniendoCategorias, obtenerCategorias] = useObtenerCategorias()
 
+  const [productosBorrados, errorBorrarProductos, borrandoProductos, borrarProductos] = useBorradoMultipleProductos()
+
   const [productoEditado, errorEditarProducto, editandoProducto, editarProducto] = useEditarProducto()
 
-  const [productoByCodigo, errorProductoByCodigo, obteniendoProductoByCodigo, obtenerProductoByCodigo] = useObtenerProductoByCodigo()
+  const [productoByCodigo, errorProductoByCodigo, obteniendoProductoByCodigo] = useObtenerProductoByCodigo()
 
+  /* FETCHING DATOS */
   useEffect(() => { obteniendoProductos && loadingPop("Obteniendo Productos...", "productos") },  [obteniendoProductos]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => { obteniendoProductoByCodigo && loadingPop("Obteniendo Producto...", "producto") },  [obteniendoProductoByCodigo]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
-  useEffect(() => { editandoProducto && loadingPop("Editando Producto...", "producto") },  [editandoProducto]) // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  useEffect(() => (productoEditado) && successPop(productoEditado?.msg, "producto"),  [productoEditado]) // eslint-disable-next-line react-hooks/exhaustive-deps
-
   useEffect(() => { obteniendoCategorias && loadingPop("Obteniendo Categorias...", "categorias") },  [obteniendoCategorias]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  /* EDITADO */
+  useEffect(() => { editandoProducto && loadingPop("Editando Producto...", "editando") },  [editandoProducto]) // eslint-disable-next-line react-hooks/exhaustive-deps
+  
+  useEffect(() => (productoEditado) && successPop(productoEditado?.msg, "editado"),  [productoEditado]) // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  /* BORRADO */
+  useEffect(() => { borrandoProductos && loadingPop("Borrando Productos...", "borrando") },  [borrandoProductos]) // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => (productosBorrados) && successPop(productosBorrados?.msg, "borrado"),  [productosBorrados]) // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  /* OBTENCION DE ERRORES */
   useEffect(() => { errorObtenerCategorias && errorPop(errorObtenerCategorias?.message, "categorias") }, [errorObtenerCategorias])
 
   useEffect(() => { errorObtenerProductos && errorPop(errorObtenerProductos?.message, "productos") }, [errorObtenerProductos])
 
+  useEffect(() => { errorBorrarProductos && errorPop(errorBorrarProductos?.message, "producto") }, [errorBorrarProductos])
+ 
   useEffect(() => { errorEditarProducto && errorPop(errorEditarProducto?.message, "producto") }, [errorEditarProducto])
 
   useEffect(() => { errorProductoByCodigo && errorPop(errorProductoByCodigo?.message, "producto") }, [errorProductoByCodigo])
   
-  useEffect(() => { if(productoEditado) { obtenerProductos() } }, [productoEditado])
-
   useEffect(() => { obtenerCategorias() }, [])
 
-  useEffect(() => { productoFilter != null ? obtenerProductos(productoFilter) : obtenerProductos(productoFilterDefault)  }, [productoFilter])
+  useEffect(() => { productoFilter != null ? obtenerProductos(productoFilter) : obtenerProductos(productoFilterDefault)  }, [productoFilter,productoEditado, productosBorrados])
 
 /*   const onGetByCode = (code) => {
      obtenerProductoByCodigo(code)
   } */
 
-  const onBorrado = async (productosIds) => {
-     const request = await borradoMultipleProductos(productosIds)
+  const onBorrado = (productosIds) => {
+    borrarProductos(productosIds)
   }
 
   const onGeneratePdf = async (productosIds) => {
@@ -69,8 +80,6 @@ const Productos = () => {
 
   const onFiltrar = (filtro) => {
     setProductoFilter(filtro)
-    console.log(filtro);
-    
   }
 
   const onAdd = async (productoAdd) => {

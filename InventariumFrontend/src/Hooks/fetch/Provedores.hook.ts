@@ -1,6 +1,6 @@
 import { errorPop } from "../util/messages/alerts"
 import useAxiosConf, { useAxios } from "../util/fetch.hook"
-import { Provedor } from "../../classes/Proveedor"
+import { Proveedor } from "../../classes/Proveedor"
 
 const URL_BASE = "api/v1/supplier"
 
@@ -8,9 +8,9 @@ const URL_BASE = "api/v1/supplier"
  * Obtiene todos los proveedores.
  * @returns Devuelve un array con los proveedores existentes.
  */
-export const useObtenerProveedores = (): [ Provedor[], Error, boolean, Function]  => {
+export const useObtenerProveedores = (): [ Proveedor[], Error, boolean, Function]  => {
 
-     const [data, error, loading, doAxios] = useAxios<Provedor[]>({
+     const [data, error, loading, doAxios] = useAxios<Proveedor[]>({
 		method: "GET",
 		triggered: true,
           url: `${ URL_BASE }/getAll`
@@ -23,10 +23,10 @@ export const useObtenerProveedores = (): [ Provedor[], Error, boolean, Function]
  * Registro de proveedores.
  * @returns Devuelve un mensaje con el resultado de la operacion.
  */
-export const registrarProvedor = async (provedor) => {
+export const registrarProveedor = async (Proveedor) => {
 
      try {
-        const request = await useAxiosConf.post(`${URL_BASE}/create`, provedor)
+        const request = await useAxiosConf.post(`${URL_BASE}/create`, Proveedor)
         return request
      } catch (error) {
         errorPop("error al intentar conectarse con el servidor." + error)
@@ -37,10 +37,10 @@ export const registrarProvedor = async (provedor) => {
  * Modificacion de proveedores.
  * @returns Devuelve un mensaje con el resultado de la operacion.
  */
-export const editarProvedor = async (provedor) => {
+export const editarProveedor = async (Proveedor) => {
 
      try {
-        const request = await useAxiosConf.put(`${URL_BASE}/edit`, provedor)
+        const request = await useAxiosConf.put(`${URL_BASE}/edit`, Proveedor)
         return request;
      } catch (error) {
         errorPop("error al intentar conectarse con el servidor." + error)
@@ -51,10 +51,10 @@ export const editarProvedor = async (provedor) => {
  * Realiza borrado multiple de proveedores.
  * @returns Devuelve el estado de la operacion.
  */
-export const borradoMultipleProvedores = async (provedoresIds) => {
+export const borradoMultipleProveedores = async (ProveedoresIds) => {
 
      try {
-       const request = await useAxiosConf.post(`${URL_BASE}/delete/bulk`, provedoresIds)
+       const request = await useAxiosConf.post(`${URL_BASE}/delete/bulk`, ProveedoresIds)
        return request;   
      } catch (error) {
           errorPop("error al intentar conectarse con el servidor."+ error)
